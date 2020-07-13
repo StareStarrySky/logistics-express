@@ -13,6 +13,7 @@ buildscript {
         classpath(kotlin("allopen", kotlinVersion))
         classpath(kotlin("noarg", kotlinVersion))
         classpath(kotlin("gradle-plugin", kotlinVersion))
+        classpath("org.jetbrains.dokka:dokka-gradle-plugin:0.10.1")
         classpath("com.bmuschko:gradle-docker-plugin:6.1.3")
     }
 }

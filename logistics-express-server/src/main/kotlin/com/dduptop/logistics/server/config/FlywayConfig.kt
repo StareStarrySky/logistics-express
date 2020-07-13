@@ -1,4 +1,4 @@
-package com.dduptop.logistics.config
+package com.dduptop.logistics.server.config
 
 import org.flywaydb.core.Flyway
 import org.springframework.boot.autoconfigure.flyway.FlywayMigrationInitializer

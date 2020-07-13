@@ -1,4 +1,4 @@
-package com.dduptop.logistics
+package com.dduptop.logistics.server
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest

@@ -1,4 +1,4 @@
-package com.dduptop.logistics.config
+package com.dduptop.logistics.server.config
 
 import com.zy.mylib.base.exception.BusException
 import com.zy.mylib.security.casbin.EnforcerManager

@@ -1,4 +1,4 @@
-package com.dduptop.logistics.config
+package com.dduptop.logistics.server.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
