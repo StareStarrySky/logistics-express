@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 buildscript {
     repositories {
         mavenLocal()
+        maven("http://dev.ystfin.com/nexus/repository/maven-public/")
         mavenCentral()
     }
 
@@ -20,10 +21,13 @@ allprojects {
     group = "com.dduptop"
     version = "0.0.1-SNAPSHOT"
 
+    val mylibVersion = "1.12.2"
+
     apply(plugin = "org.jetbrains.kotlin.jvm")
 
     repositories {
         mavenLocal()
+        maven("http://dev.ystfin.com/nexus/repository/maven-public/")
         mavenCentral()
     }
 
@@ -32,6 +36,7 @@ allprojects {
 
         implementation((kotlin("reflect")))
         implementation((kotlin("stdlib")))
+        implementation(platform("com.zy.mylib:mylib-dependencies:$mylibVersion"))
     }
 
     tasks.withType<Test> {

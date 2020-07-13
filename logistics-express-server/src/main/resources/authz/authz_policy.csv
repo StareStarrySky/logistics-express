@@ -1,0 +1,5 @@
+p, user, *, *, allow
+p, admin, *, *, allow
+p, state, *, *, allow
+p, *, /pay/result, *, allow
+p, *, /pay/auth/*, *, allow

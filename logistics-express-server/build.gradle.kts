@@ -12,10 +12,15 @@ base {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter")
-    testImplementation("org.springframework.boot:spring-boot-starter-test") {
-        exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
-    }
+    implementation("com.zy.mylib:mylib-utils")
+    implementation("com.zy.mylib:mylib-webmvc-data-jpa")
+    implementation("com.zy.mylib:mylib-webmvc-security")
+    implementation("com.zy.mylib:mylib-security-casbin-jwt")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
+    implementation("org.flywaydb:flyway-core:6.5.0")
+    implementation("mysql:mysql-connector-java:8.0.20")
+
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 }
 
 tasks {
