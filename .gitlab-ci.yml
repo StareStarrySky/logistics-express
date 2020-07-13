@@ -1,0 +1,40 @@
+stages:
+  - build
+  - deploy
+variables:
+  GRADLE_USER_HOME: "${CI_PROJECT_DIR}/.gradle"
+cache:
+  key: logisticsGradleCache
+  paths:
+    - ${CI_PROJECT_DIR}/.gradle
+job-build:
+  stage: build
+  only:
+    - branches
+  script:
+    - mkdir -p ${CI_PROJECT_DIR}/.gradle
+    - |
+      cat > ${CI_PROJECT_DIR}/.gradle/gradle.properties << EOF
+        nexusUser=deploy
+        nexusPwd=ystfin!@#$
+      EOF
+    - chmod +x ./gradlew
+#    - ./gradlew :logistics-express-client:publish
+    - ./gradlew :logistics-express-server:bootJar
+  tags:
+    - mvn
+job-pull:
+  stage: deploy
+  only:
+    - tags
+  script:
+    - mkdir -p ${CI_PROJECT_DIR}/.gradle
+    - |
+      cat > ${CI_PROJECT_DIR}/.gradle/gradle.properties << EOF
+        nexusUser=not
+        nexusPwd=not
+      EOF
+    - chmod +x ./gradlew
+    - ./gradlew :logistics-express-server:pushImage
+  tags:
+    - mvn
