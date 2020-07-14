@@ -19,7 +19,6 @@ job-build:
         nexusPwd=ystfin!@#$
       EOF
     - chmod +x ./gradlew
-    - ./gradlew :logistics-express-client:publish
     - ./gradlew :logistics-express-server:bootJar
   tags:
     - mvn
@@ -35,6 +34,7 @@ job-pull:
         nexusPwd=not
       EOF
     - chmod +x ./gradlew
+    - ./gradlew :logistics-express-client:publish
     - ./gradlew :logistics-express-server:pushImage
   tags:
     - mvn
