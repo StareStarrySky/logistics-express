@@ -5,3 +5,5 @@ server:
 mylib:
   casbin:
     enforcer: false
+ems:
+  url: https://this-is-a-placeholder.com/

@@ -21,6 +21,7 @@ dependencies {
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
     implementation("org.flywaydb:flyway-core:6.5.0")
     implementation("mysql:mysql-connector-java:8.0.20")
+    implementation(project(":logistics-express-client"))
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")

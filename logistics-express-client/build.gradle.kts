@@ -11,7 +11,7 @@ base {
 }
 
 dependencies {
-    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+    api("org.springframework.cloud:spring-cloud-starter-openfeign")
     implementation("com.zy.mylib:mylib-webmvc")
 }
 
