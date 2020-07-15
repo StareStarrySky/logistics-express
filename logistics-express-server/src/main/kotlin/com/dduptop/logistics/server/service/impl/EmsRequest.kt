@@ -7,9 +7,6 @@ import com.dduptop.logistics.server.model.common.MsgType
 import com.dduptop.logistics.server.model.request.json.MsgContent
 import com.dduptop.logistics.server.model.request.xml.BaseXmlRequest
 import com.dduptop.logistics.server.model.request.xml.XmlRequestContent
-import com.dduptop.logistics.server.model.response.xml.OrderCreateResponse
-import com.dduptop.logistics.server.model.response.xml.XmlResponses
-import com.dduptop.logistics.server.service.EmsService
 import com.dduptop.logistics.server.service.ServiceRunner
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.MapperFeature
@@ -18,8 +15,6 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper
 import com.zy.mylib.base.exception.BusException
 import com.zy.mylib.utils.DateUtils
 import com.zy.mylib.utils.HashUtils
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Component
 import org.springframework.util.Base64Utils
 import java.net.URLEncoder

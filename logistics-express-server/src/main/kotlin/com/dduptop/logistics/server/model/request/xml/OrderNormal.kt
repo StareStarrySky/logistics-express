@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull
  * 创建订单（订单下单取号接口+订单接入接口）
  */
 @JacksonXmlRootElement(localName = "OrderNormal")
-class OrderNormal {
+class OrderNormal : BaseContent() {
     /**
      * 订单接入时间 yyyy-mm-dd hh:mm:ss
      */
@@ -47,7 +47,7 @@ class OrderNormal {
      */
     @NotNull
     @JacksonXmlProperty(localName = "logistics_order_no")
-    lateinit var ogisticsOrderNo: String
+    lateinit var logisticsOrderNo: String
 
     /**
      * 基础产品代码

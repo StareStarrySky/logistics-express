@@ -3,7 +3,7 @@ package com.dduptop.logistics.server.model.request.xml
 /**
  * 请求内容
  */
-class XmlRequestContent<T> {
+class XmlRequestContent<T : BaseContent> {
     /**
      * xml内容
      */
