@@ -1,6 +1,8 @@
 package com.dduptop.logistics.server.model.response.json
 
-class JsonResponse {
+import com.dduptop.logistics.server.model.common.BaseResponse
+
+class JsonResponse : BaseResponse() {
     /**
      * 接收方标识
      */

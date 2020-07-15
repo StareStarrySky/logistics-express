@@ -1,12 +1,13 @@
 package com.dduptop.logistics.server.model.request.json
 
+import com.dduptop.logistics.server.model.common.BaseRequest
 import com.fasterxml.jackson.annotation.JsonProperty
 import javax.validation.constraints.NotNull
 
 /**
  * 消息头
  */
-open class MsgHeader {
+open class MsgHeader : BaseRequest() {
     /**
      * 发送方标识
      */

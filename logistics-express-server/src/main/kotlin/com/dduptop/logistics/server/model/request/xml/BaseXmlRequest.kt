@@ -1,12 +1,13 @@
 package com.dduptop.logistics.server.model.request.xml
 
+import com.dduptop.logistics.server.model.common.BaseRequest
 import com.dduptop.logistics.server.model.common.EcCompanyId
 import com.dduptop.logistics.server.model.common.MsgType
 
 /**
  * 基础请求体
  */
-open class BaseXmlRequest {
+class BaseXmlRequest : BaseRequest() {
     /**
      * XML内容
      */
