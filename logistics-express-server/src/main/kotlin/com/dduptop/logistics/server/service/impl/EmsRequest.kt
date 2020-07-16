@@ -24,7 +24,7 @@ import java.util.*
 @Component
 class EmsRequest {
     private val parternID = ""
-    private val xmlMapper = XmlMapper()
+    private final val xmlMapper = XmlMapper()
 
     init {
         xmlMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)

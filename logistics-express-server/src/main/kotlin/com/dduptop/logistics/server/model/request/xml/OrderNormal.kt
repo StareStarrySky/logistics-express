@@ -1,5 +1,6 @@
 package com.dduptop.logistics.server.model.request.xml
 
+import com.dduptop.logistics.server.model.common.BaseContent
 import com.dduptop.logistics.server.model.common.EcCompanyId
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty

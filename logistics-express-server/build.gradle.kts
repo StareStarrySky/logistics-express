@@ -27,6 +27,7 @@ dependencies {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
 
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 }
 

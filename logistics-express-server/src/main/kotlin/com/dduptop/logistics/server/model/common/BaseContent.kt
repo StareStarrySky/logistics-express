@@ -1,4 +1,4 @@
-package com.dduptop.logistics.server.model.request.xml
+package com.dduptop.logistics.server.model.common
 
 import java.io.Serializable
 

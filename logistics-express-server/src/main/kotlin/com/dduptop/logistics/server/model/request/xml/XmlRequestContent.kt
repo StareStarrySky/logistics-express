@@ -1,5 +1,7 @@
 package com.dduptop.logistics.server.model.request.xml
 
+import com.dduptop.logistics.server.model.common.BaseContent
+
 /**
  * 请求内容
  */
