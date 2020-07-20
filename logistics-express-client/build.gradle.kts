@@ -3,6 +3,8 @@ import org.jetbrains.dokka.gradle.DokkaTask
 plugins {
     id("maven-publish")
     id("org.jetbrains.dokka")
+    id("org.springframework.boot") version "2.3.1.RELEASE"
+    id("io.spring.dependency-management") version "1.0.9.RELEASE"
     kotlin("jvm")
 }
 
@@ -10,10 +12,18 @@ base {
     archivesBaseName = "logistics-express-client"
 }
 
+//extra["springCloudVersion"] = "Hoxton.SR6"
+
 dependencies {
     api("org.springframework.cloud:spring-cloud-starter-openfeign")
     implementation("com.zy.mylib:mylib-webmvc")
 }
+
+//dependencyManagement {
+//    imports {
+//        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+//    }
+//}
 
 val generateSourcesJar by tasks.creating(Jar::class) {
     archiveClassifier.set("sources")
