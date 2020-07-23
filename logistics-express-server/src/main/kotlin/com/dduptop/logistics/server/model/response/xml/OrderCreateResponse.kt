@@ -10,5 +10,5 @@ class OrderCreateResponse : Response() {
      * 主单单号,子单单号,...
      */
     @JacksonXmlProperty(localName = "waybill_no")
-    lateinit var waybillNo: String
+    var waybillNo: String? = null
 }

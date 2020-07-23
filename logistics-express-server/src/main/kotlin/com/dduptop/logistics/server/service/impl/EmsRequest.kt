@@ -8,32 +8,34 @@ import com.dduptop.logistics.server.model.request.json.MsgContent
 import com.dduptop.logistics.server.model.request.xml.BaseXmlRequest
 import com.dduptop.logistics.server.model.request.xml.XmlRequestContent
 import com.dduptop.logistics.server.service.ServiceRunner
+import com.dduptop.logistics.server.util.SignUtils
+import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.MapperFeature
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.dataformat.xml.XmlMapper
 import com.zy.mylib.base.exception.BusException
 import com.zy.mylib.utils.DateUtils
-import com.zy.mylib.utils.HashUtils
 import org.springframework.stereotype.Component
-import org.springframework.util.Base64Utils
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.util.*
 
 @Component
 class EmsRequest {
-    private val parternID = ""
-    private final val xmlMapper = XmlMapper()
+    final val xmlMapper = XmlMapper()
 
     init {
+        xmlMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL)
         xmlMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
         xmlMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
         xmlMapper.configure(SerializationFeature.WRAP_EXCEPTIONS, true)
         xmlMapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, false)
     }
 
-    fun buildXmlRequest(content: XmlRequestContent<*>): BaseXmlRequest {
+    fun buildXmlRequest(content: XmlRequestContent<*>, parentId: String): BaseXmlRequest {
         val xml = try {
             xmlMapper.writeValueAsString(content.logisticsInterface)
         } catch (e: Exception) {
@@ -42,12 +44,13 @@ class EmsRequest {
         }
         val xmlFull = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>$xml"
         println("发送请求：$xmlFull")
-        val digest = Base64Utils.encodeToUrlSafeString(HashUtils.getMd5("$xmlFull$parternID").toByteArray(StandardCharsets.UTF_8))
+//        val digest = Base64Utils.encodeToUrlSafeString(HashUtils.getMd5("$xmlFull$parentId").toByteArray(StandardCharsets.UTF_8))
+        val digest = SignUtils.makeSignEMS("$xmlFull$parentId")
         return BaseXmlRequest().apply {
-            ecCompanyId = EcCompanyId.DKH
-            msgType = MsgType.ORDERCREATE
-            logisticsInterface = URLEncoder.encode(xmlFull, StandardCharsets.UTF_8)
-            dataDigest = URLEncoder.encode(digest, StandardCharsets.UTF_8)
+            ecCompanyId = EcCompanyId.whzcwyh
+            msg_type = MsgType.ORDERCREATE
+            logistics_interface = URLEncoder.encode(xmlFull, StandardCharsets.UTF_8.toString())
+            data_digest = URLEncoder.encode(digest, StandardCharsets.UTF_8.toString())
         }
     }
 
@@ -64,5 +67,11 @@ class EmsRequest {
             dataType = "1"
             msgBody = body
         }
+    }
+
+    @Throws(JsonProcessingException::class, JsonMappingException::class)
+    fun <T> xml2Bean(xml: String, valueType: Class<T>, vararg parameterClasses: Class<*>): T {
+        val javaType = xmlMapper.typeFactory.constructParametricType(valueType, *parameterClasses)
+        return xmlMapper.readValue(xml, javaType)
     }
 }

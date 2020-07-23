@@ -15,6 +15,18 @@ class Address {
     lateinit var name: String
 
     /**
+     * 用户邮编
+     */
+    @JacksonXmlProperty(localName = "post_code")
+    var postCode: String? = null
+
+    /**
+     * 用户电话，包括区号、电话号码及分机号，中间用“-”分隔；
+     */
+    @JacksonXmlProperty(localName = "phone")
+    var phone: String? = null
+
+    /**
      * 用户移动电话
      */
     @NotNull
@@ -39,7 +51,7 @@ class Address {
      * 用户所在县（区），使用国标全称
      */
     @JacksonXmlProperty(localName = "county")
-    lateinit var county: String
+    var county: String? = null
 
     /**
      * 用户详细地址

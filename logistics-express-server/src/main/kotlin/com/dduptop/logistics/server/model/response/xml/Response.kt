@@ -13,5 +13,5 @@ open class Response {
      * 失败原因
      */
     @JacksonXmlProperty(localName = "reason")
-    lateinit var reason: String
+    var reason: String? = null
 }

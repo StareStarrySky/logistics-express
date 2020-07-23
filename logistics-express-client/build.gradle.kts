@@ -3,8 +3,8 @@ import org.jetbrains.dokka.gradle.DokkaTask
 plugins {
     id("maven-publish")
     id("org.jetbrains.dokka")
-    id("org.springframework.boot") version "2.3.1.RELEASE"
-    id("io.spring.dependency-management") version "1.0.9.RELEASE"
+//    id("org.springframework.boot") version "2.3.1.RELEASE"
+//    id("io.spring.dependency-management") version "1.0.9.RELEASE"
     kotlin("jvm")
 }
 
@@ -16,6 +16,7 @@ base {
 
 dependencies {
     api("org.springframework.cloud:spring-cloud-starter-openfeign")
+    api("io.github.openfeign:feign-httpclient")
     implementation("com.zy.mylib:mylib-webmvc")
 }
 

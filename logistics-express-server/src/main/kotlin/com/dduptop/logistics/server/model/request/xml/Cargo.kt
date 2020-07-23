@@ -18,7 +18,6 @@ class Cargo {
     /**
      * 订单号,用于一票多件
      */
-    @NotNull
     @JacksonXmlProperty(localName = "order_no")
-    lateinit var orderNo: String
+    var orderNo: String? = null
 }

@@ -12,8 +12,11 @@ import org.springframework.stereotype.Service
 class ServiceCreateOrderRunnerProcessor : ServiceRunner<BaseXmlRequest, XmlResponses<OrderCreateResponse>> {
     @Autowired
     private lateinit var emsService: EmsService
+    @Autowired
+    private lateinit var emsRequest: EmsRequest
 
     override fun process(paramType: BaseXmlRequest): XmlResponses<OrderCreateResponse> {
-        return emsService.createOrder(paramType)
+        val result =  emsService.createOrder(paramType)
+        return emsRequest.xml2Bean(result, XmlResponses::class.java, OrderCreateResponse::class.java) as XmlResponses<OrderCreateResponse>
     }
 }

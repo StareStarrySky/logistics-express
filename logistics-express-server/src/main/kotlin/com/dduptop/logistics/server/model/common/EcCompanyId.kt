@@ -17,5 +17,15 @@ enum class EcCompanyId {
     /**
      * 寄递平台
      */
-    JDPT
+    JDPT,
+
+    /**
+     * demo
+     */
+    CICPSSYSTEM,
+
+    /**
+     * 武仲
+     */
+    whzcwyh
 }

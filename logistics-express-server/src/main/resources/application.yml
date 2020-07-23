@@ -6,4 +6,4 @@ mylib:
   casbin:
     enforcer: false
 ems:
-  url: https://this-is-a-placeholder.com/
+  create-order-url: https://211.156.195.17/iwaybillno-web/a/iwaybill/receive

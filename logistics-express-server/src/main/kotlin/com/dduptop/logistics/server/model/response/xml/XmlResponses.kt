@@ -10,5 +10,5 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 @JacksonXmlRootElement(localName = "responses")
 class XmlResponses<T : Response> : BaseResponse() {
     @JacksonXmlProperty(localName = "responseItems")
-    lateinit var responseItems: ResponseItems<T>
+    var responseItems: ResponseItems<T>? = null
 }

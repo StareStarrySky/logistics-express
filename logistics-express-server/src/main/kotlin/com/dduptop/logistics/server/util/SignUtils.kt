@@ -1,8 +1,10 @@
 package com.dduptop.logistics.server.util
 
+import sun.misc.BASE64Encoder
 import java.io.UnsupportedEncodingException
 import java.nio.charset.StandardCharsets
 import java.security.InvalidKeyException
+import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.util.*
 import javax.crypto.Mac
@@ -28,5 +30,10 @@ object SignUtils {
         return try {
             sign == sign(content, secret)
         } catch (e: Exception) {false}
+    }
+
+    @Throws(NoSuchAlgorithmException::class, UnsupportedEncodingException::class)
+    fun makeSignEMS(content: String): String {
+        return BASE64Encoder().encode(MessageDigest.getInstance("MD5").digest((content).toByteArray(charset("UTF-8"))))
     }
 }
