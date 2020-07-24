@@ -29,3 +29,7 @@ spring:
     ignore-missing-migrations: true
     validate-on-migrate: false
     clean-on-validation-error: true
+mylib:
+  casbin:
+    enforcer:
+      enableLog: true

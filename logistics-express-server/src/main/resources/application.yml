@@ -2,8 +2,5 @@ server:
   port: 8080
   servlet:
     context-path: /logistics-express
-mylib:
-  casbin:
-    enforcer: false
 ems:
   create-order-url: https://211.156.195.17/iwaybillno-web/a/iwaybill/receive

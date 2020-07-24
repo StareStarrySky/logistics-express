@@ -19,8 +19,6 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper
 import com.zy.mylib.base.exception.BusException
 import com.zy.mylib.utils.DateUtils
 import org.springframework.stereotype.Component
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
 import java.util.*
 
 @Component
@@ -33,6 +31,10 @@ class EmsRequest {
         xmlMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
         xmlMapper.configure(SerializationFeature.WRAP_EXCEPTIONS, true)
         xmlMapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, false)
+    }
+
+    fun <PT : BaseRequest, RT : BaseResponse> sendRequest(runner: ServiceRunner<PT, RT>, xmlRequest: PT): RT {
+        return runner.process(xmlRequest)
     }
 
     fun buildXmlRequest(content: XmlRequestContent<*>, parentId: String): BaseXmlRequest {
@@ -49,13 +51,9 @@ class EmsRequest {
         return BaseXmlRequest().apply {
             ecCompanyId = EcCompanyId.whzcwyh
             msg_type = MsgType.ORDERCREATE
-            logistics_interface = URLEncoder.encode(xmlFull, StandardCharsets.UTF_8.toString())
-            data_digest = URLEncoder.encode(digest, StandardCharsets.UTF_8.toString())
+            logistics_interface = xmlFull
+            data_digest = digest
         }
-    }
-
-    fun <PT : BaseRequest, RT : BaseResponse> sendRequest(runner: ServiceRunner<PT, RT>, xmlRequest: PT): RT {
-        return runner.process(xmlRequest)
     }
 
     fun <T> getReqParam(body: T): MsgContent<T> {
