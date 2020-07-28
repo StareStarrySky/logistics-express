@@ -23,11 +23,19 @@ class OrderNormal : BaseContent() {
      * 物流承运方
      * A：邮务
      * B：速递
-     * 如果基础产品代码为11312则为A，如果基础产品代码为21210则为B
+     * 基础产品代码 A对应2 B对应1
      */
     @NotNull
     @JacksonXmlProperty(localName = "logistics_provider")
     var logisticsProvider: Char? = null
+
+    /**
+     * 基础产品代码
+     * 1 - 标快 2 - 快包
+     */
+    @NotNull
+    @JacksonXmlProperty(localName = "base_product_no")
+    lateinit var baseProductNo: String
 
     /**
      * 渠道来源标识
@@ -59,6 +67,25 @@ class OrderNormal : BaseContent() {
     var senderNo: String? = null
 
     /**
+     * 批次号
+     */
+    @JacksonXmlProperty(localName = "batch_no")
+    var batchNo: String? = null
+
+    /**
+     * 运单号
+     */
+    @JacksonXmlProperty(localName = "waybill_no")
+    var waybillNo: String? = null
+
+    /**
+     * 一票多件标志
+     * 0 正常 1 一票多件
+     */
+    @JacksonXmlProperty(localName = "one_bill_flag")
+    var oneBillFlag: String? = null
+
+    /**
      * 内部订单来源标识
      * 0：直接对接
      * 1：邮务国内小包订单系统
@@ -73,19 +100,11 @@ class OrderNormal : BaseContent() {
     var innerChannel: Int? = null
 
     /**
-     * 物流订单号
+     * 物流订单号（自定义）
      */
     @NotNull
     @JacksonXmlProperty(localName = "logistics_order_no")
     lateinit var logisticsOrderNo: String
-
-    /**
-     * 基础产品代码
-     * 标快填写11312 快包填写21210
-     */
-    @NotNull
-    @JacksonXmlProperty(localName = "base_product_no")
-    lateinit var baseProductNo: String
 
     /**
      * 业务产品分类（可售卖产品代码）

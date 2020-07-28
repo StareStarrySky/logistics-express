@@ -1,4 +1,4 @@
-package com.dduptop.logistics.server.config
+package com.dduptop.logistics.server.config.auth
 
 import com.zy.mylib.security.LoginUser
 import com.zy.mylib.security.Passport

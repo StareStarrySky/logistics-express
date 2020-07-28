@@ -1,4 +1,4 @@
-package com.dduptop.logistics.server.config
+package com.dduptop.logistics.server.config.feign
 
 import feign.Logger
 import feign.codec.Encoder
@@ -9,7 +9,6 @@ import org.springframework.cloud.openfeign.support.SpringEncoder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
-@Configuration
 class FeignFormConfig {
     @Bean
     fun encoder(converterObj: ObjectFactory<HttpMessageConverters>): Encoder {

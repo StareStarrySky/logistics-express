@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
-class EmsRequest {
+class EMSXmlRequest {
     final val xmlMapper = XmlMapper()
 
     init {
@@ -31,6 +31,12 @@ class EmsRequest {
         xmlMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
         xmlMapper.configure(SerializationFeature.WRAP_EXCEPTIONS, true)
         xmlMapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, false)
+    }
+
+    @Throws(JsonProcessingException::class, JsonMappingException::class)
+    fun <T> xml2Bean(xml: String?, valueType: Class<T>, vararg parameterClasses: Class<*>?): T {
+        val javaType = xmlMapper.typeFactory.constructParametricType(valueType, *parameterClasses)
+        return xmlMapper.readValue(xml, javaType)
     }
 
     fun <PT : BaseRequest, RT : BaseResponse> sendRequest(runner: ServiceRunner<PT, RT>, xmlRequest: PT): RT {
@@ -44,14 +50,14 @@ class EmsRequest {
             e.printStackTrace()
             throw BusException.builder().httpStatus(500).build()
         }
-        val xmlFull = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>$xml"
-        println("发送请求：$xmlFull")
+//        val xmlFull = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>$xml"
+        println("发送请求：$xml")
 //        val digest = Base64Utils.encodeToUrlSafeString(HashUtils.getMd5("$xmlFull$parentId").toByteArray(StandardCharsets.UTF_8))
-        val digest = SignUtils.makeSignEMS("$xmlFull$parentId")
+        val digest = SignUtils.makeSignEMS("$xml$parentId")
         return BaseXmlRequest().apply {
             ecCompanyId = EcCompanyId.whzcwyh
             msg_type = MsgType.ORDERCREATE
-            logistics_interface = xmlFull
+            logistics_interface = xml
             data_digest = digest
         }
     }
@@ -65,11 +71,5 @@ class EmsRequest {
             dataType = "1"
             msgBody = body
         }
-    }
-
-    @Throws(JsonProcessingException::class, JsonMappingException::class)
-    fun <T> xml2Bean(xml: String, valueType: Class<T>, vararg parameterClasses: Class<*>): T {
-        val javaType = xmlMapper.typeFactory.constructParametricType(valueType, *parameterClasses)
-        return xmlMapper.readValue(xml, javaType)
     }
 }

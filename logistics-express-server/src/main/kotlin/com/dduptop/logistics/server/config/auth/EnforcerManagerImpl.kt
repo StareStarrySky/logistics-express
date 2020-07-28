@@ -1,4 +1,4 @@
-package com.dduptop.logistics.server.config
+package com.dduptop.logistics.server.config.auth
 
 import com.dduptop.logistics.server.manager.ApiUserManager
 import com.zy.mylib.base.exception.BusException
