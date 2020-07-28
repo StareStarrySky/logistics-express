@@ -27,5 +27,10 @@ enum class EcCompanyId {
     /**
      * 武仲
      */
-    whzcwyh
+    whzcwyh,
+
+    /**
+     * 轨迹接口编码
+     */
+    whzcwyh_JDPT_TRACE
 }

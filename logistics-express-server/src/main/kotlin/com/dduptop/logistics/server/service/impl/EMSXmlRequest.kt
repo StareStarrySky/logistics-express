@@ -2,7 +2,6 @@ package com.dduptop.logistics.server.service.impl
 
 import com.dduptop.logistics.server.model.common.EcCompanyId
 import com.dduptop.logistics.server.model.common.MsgType
-import com.dduptop.logistics.server.model.request.json.MsgContent
 import com.dduptop.logistics.server.model.request.xml.BaseXmlRequest
 import com.dduptop.logistics.server.model.request.xml.XmlRequestContent
 import com.dduptop.logistics.server.util.SignUtils
@@ -14,9 +13,7 @@ import com.fasterxml.jackson.databind.MapperFeature
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.dataformat.xml.XmlMapper
 import com.zy.mylib.base.exception.BusException
-import com.zy.mylib.utils.DateUtils
 import org.springframework.stereotype.Component
-import java.util.*
 
 @Component
 class EMSXmlRequest : EMSRequest() {
@@ -52,17 +49,6 @@ class EMSXmlRequest : EMSRequest() {
             msg_type = MsgType.ORDERCREATE
             logistics_interface = xml
             data_digest = digest
-        }
-    }
-
-    fun <T> getReqParam(body: T): MsgContent<T> {
-        return MsgContent<T>().apply {
-            sendId = EcCompanyId.JDPT.name
-            msgKind = "JDPT_XXX_TRACE"
-            serialNo = UUID.randomUUID().toString()
-            sendDate = DateUtils.getToday("yyyyMMddHHmmss")
-            dataType = "1"
-            msgBody = body
         }
     }
 }

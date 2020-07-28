@@ -2,11 +2,19 @@ server:
   port: 8080
   servlet:
     context-path: /logistics-express
+mylib:
+  casbin:
+    enforcer:
+      enableLog: false
 ems:
-  create-order-url: https://211.156.195.17/iwaybillno-web/a/iwaybill/receive
+  create-order:
+    url: https://211.156.195.17/iwaybillno-web/a/iwaybill/receive
   classification:
     url: http://211.156.195.187:8086/ceshi_csb_broker
     api: routInfoQueryForPDD
     version: 1.0.0
     accessKey: dd979a77b2a44e54b65f01dcbc0bae04
     secretKey: kCZfusS4Zn300MTnYtIlWzhdoE8=
+  order-line:
+    url: http://211.156.195.29/querypush-twswn/mailTrack/queryMailTrackWn/plus
+    app-key: AFAB71AB1F1E1353

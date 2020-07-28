@@ -1,6 +1,7 @@
 package com.dduptop.logistics.server.model.request.json
 
 import com.dduptop.logistics.server.model.common.BaseRequest
+import com.dduptop.logistics.server.model.common.EcCompanyId
 import com.fasterxml.jackson.annotation.JsonProperty
 import javax.validation.constraints.NotNull
 
@@ -13,14 +14,21 @@ open class MsgHeader : BaseRequest() {
      */
     @NotNull
     @JsonProperty("sendID")
-    lateinit var sendId: String
+    lateinit var sendId: EcCompanyId
+
+    /**
+     * 数据生产的省公司代码
+     * 对不能确定的省份取 99
+     */
+    @JsonProperty("proviceNo")
+    lateinit var proviceNo: String
 
     /**
      * 消息类别
      */
     @NotNull
     @JsonProperty("msgKind")
-    lateinit var msgKind: String
+    lateinit var msgKind: EcCompanyId
 
     /**
      * 消息唯一序列号
@@ -43,7 +51,13 @@ open class MsgHeader : BaseRequest() {
      */
     @NotNull
     @JsonProperty("receiveID")
-    lateinit var receiveId: String
+    lateinit var receiveId: EcCompanyId
+
+    /**
+     * 批次号
+     */
+    @JsonProperty("batchNo")
+    var batchNo: String? = null
 
     /**
      * 数据类型

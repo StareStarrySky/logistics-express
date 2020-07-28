@@ -9,5 +9,5 @@ import javax.validation.constraints.NotNull
 class MsgContent<T> : MsgHeader() {
     @NotNull
     @JsonProperty("msgBody")
-    var msgBody: T? = null
+    lateinit var msgBody: String
 }

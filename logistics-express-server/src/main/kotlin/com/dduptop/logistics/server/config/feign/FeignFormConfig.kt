@@ -9,9 +9,10 @@ import org.springframework.cloud.openfeign.support.SpringEncoder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
+@Configuration
 class FeignFormConfig {
     @Bean
-    fun encoder(converterObj: ObjectFactory<HttpMessageConverters>): Encoder {
+    fun springFormEncoder(converterObj: ObjectFactory<HttpMessageConverters>): Encoder {
         return SpringFormEncoder(SpringEncoder(converterObj))
     }
 
