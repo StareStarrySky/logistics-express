@@ -1,13 +1,10 @@
 package com.dduptop.logistics.server.service.impl
 
-import com.dduptop.logistics.server.model.common.BaseRequest
-import com.dduptop.logistics.server.model.common.BaseResponse
 import com.dduptop.logistics.server.model.common.EcCompanyId
 import com.dduptop.logistics.server.model.common.MsgType
 import com.dduptop.logistics.server.model.request.json.MsgContent
 import com.dduptop.logistics.server.model.request.xml.BaseXmlRequest
 import com.dduptop.logistics.server.model.request.xml.XmlRequestContent
-import com.dduptop.logistics.server.service.ServiceRunner
 import com.dduptop.logistics.server.util.SignUtils
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.core.JsonProcessingException
@@ -22,7 +19,7 @@ import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
-class EMSXmlRequest {
+class EMSXmlRequest : EMSRequest() {
     final val xmlMapper = XmlMapper()
 
     init {
@@ -34,13 +31,9 @@ class EMSXmlRequest {
     }
 
     @Throws(JsonProcessingException::class, JsonMappingException::class)
-    fun <T> xml2Bean(xml: String?, valueType: Class<T>, vararg parameterClasses: Class<*>?): T {
+    override fun <T> toBean(content: String?, valueType: Class<T>, vararg parameterClasses: Class<*>?): T {
         val javaType = xmlMapper.typeFactory.constructParametricType(valueType, *parameterClasses)
-        return xmlMapper.readValue(xml, javaType)
-    }
-
-    fun <PT : BaseRequest, RT : BaseResponse> sendRequest(runner: ServiceRunner<PT, RT>, xmlRequest: PT): RT {
-        return runner.process(xmlRequest)
+        return xmlMapper.readValue(content, javaType)
     }
 
     fun buildXmlRequest(content: XmlRequestContent<*>, parentId: String): BaseXmlRequest {

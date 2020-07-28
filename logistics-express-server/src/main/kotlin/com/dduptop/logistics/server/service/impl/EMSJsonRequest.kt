@@ -1,8 +1,5 @@
 package com.dduptop.logistics.server.service.impl
 
-import com.dduptop.logistics.server.model.common.BaseRequest
-import com.dduptop.logistics.server.model.common.BaseResponse
-import com.dduptop.logistics.server.service.ServiceRunner
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.DeserializationFeature
@@ -13,7 +10,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper
 import org.springframework.stereotype.Component
 
 @Component
-class EMSJsonRequest {
+class EMSJsonRequest : EMSRequest() {
     final val jsonMapper = JsonMapper()
 
     init {
@@ -25,12 +22,8 @@ class EMSJsonRequest {
     }
 
     @Throws(JsonProcessingException::class, JsonMappingException::class)
-    fun <T> json2Bean(json: String?, valueType: Class<T>, vararg parameterClasses: Class<*>?): T {
+    override fun <T> toBean(content: String?, valueType: Class<T>, vararg parameterClasses: Class<*>?): T {
         val javaType = jsonMapper.typeFactory.constructParametricType(valueType, *parameterClasses)
-        return jsonMapper.readValue(json, javaType)
-    }
-
-    fun <PT : BaseRequest, RT : BaseResponse> sendRequest(runner: ServiceRunner<PT, RT>, jsonRequest: PT): RT {
-        return runner.process(jsonRequest)
+        return jsonMapper.readValue(content, javaType)
     }
 }
