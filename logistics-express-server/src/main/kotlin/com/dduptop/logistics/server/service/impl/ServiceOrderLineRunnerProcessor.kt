@@ -14,6 +14,6 @@ class ServiceOrderLineRunnerProcessor : ServiceRunner<MsgContent<OrderLine>, Jso
     private lateinit var emsService: EMSService
 
     override fun process(paramType: MsgContent<OrderLine>): JsonResponse {
-        return emsService.orderLine(paramType)
+        return emsService.orderLine(paramType)!!
     }
 }

@@ -29,6 +29,6 @@ class ServiceClassificationRunnerProcessor : ServiceRunner<CSBRequest, CSBRespos
 
     override fun process(paramType: CSBRequest): CSBRespose {
         val classification = csbService.classification(paramType, api, version, accessKey, secretKey)
-        return emsJsonRequest.json2Bean(classification, CSBRespose::class.java, null)
+        return emsJsonRequest.toBean(classification, CSBRespose::class.java, null)
     }
 }
