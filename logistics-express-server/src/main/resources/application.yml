@@ -18,3 +18,6 @@ ems:
   order-line:
     url: http://211.156.195.29/querypush-twswn/mailTrack/queryMailTrackWn/plus
     app-key: AFAB71AB1F1E1353
+logging:
+  level:
+    com.dduptop.logistics.server.service: debug

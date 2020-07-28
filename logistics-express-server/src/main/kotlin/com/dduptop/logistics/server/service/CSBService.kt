@@ -2,19 +2,17 @@ package com.dduptop.logistics.server.service
 
 import com.dduptop.logistics.client.config.FeignErrorDecoder
 import com.dduptop.logistics.client.config.FeignOAuth2RequestInterceptor
-import com.dduptop.logistics.client.config.FeignSSLConfig
 import com.dduptop.logistics.server.config.feign.FeignCSBClientConfig
 import com.dduptop.logistics.server.model.request.json.CSBRequest
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.cloud.openfeign.FeignClientsConfiguration
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.RequestHeader
 
 @FeignClient(name = "ems", contextId = "csb", url = "\${ems.classification.url}",
     configuration = [FeignOAuth2RequestInterceptor::class,
         FeignClientsConfiguration::class,
-        FeignSSLConfig::class,
         FeignCSBClientConfig::class
     ],
     fallback = FeignErrorDecoder::class
@@ -25,8 +23,8 @@ interface CSBService {
      */
     @PostMapping
     fun classification(@RequestBody csbRequest: CSBRequest,
-                       @RequestParam("api") api: String,
-                       @RequestParam("version") version: String,
-                       @RequestParam("accessKey") accessKey: String,
-                       @RequestParam("secretKey") secretKey: String): String?
+                       @RequestHeader("api") api: String,
+                       @RequestHeader("version") version: String,
+                       @RequestHeader("accessKey") accessKey: String,
+                       @RequestHeader("secretKey") secretKey: String): String?
 }

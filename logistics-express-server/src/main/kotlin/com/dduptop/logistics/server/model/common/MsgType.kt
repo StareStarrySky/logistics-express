@@ -27,5 +27,10 @@ enum class MsgType {
     /**
      * 订单更新
      */
-    ORDERUPDATE
+    ORDERUPDATE,
+
+    /**
+     * 轨迹接口编码
+     */
+    whzcwyh_JDPT_TRACE
 }

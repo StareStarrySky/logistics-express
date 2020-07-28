@@ -32,5 +32,5 @@ interface EMSService {
      * 运单轨迹信息
      */
     @PostMapping(consumes = [MediaType.APPLICATION_FORM_URLENCODED_VALUE])
-    fun orderLine(uri: URI, msgContent: MsgContent<OrderLine>): String?
+    fun orderLine(uri: URI, msgContent: MsgContent): String?
 }

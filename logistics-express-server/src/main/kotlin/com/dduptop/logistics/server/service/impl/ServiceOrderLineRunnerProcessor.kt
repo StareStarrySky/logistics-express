@@ -1,7 +1,6 @@
 package com.dduptop.logistics.server.service.impl
 
 import com.dduptop.logistics.server.model.request.json.MsgContent
-import com.dduptop.logistics.server.model.request.json.OrderLine
 import com.dduptop.logistics.server.model.response.json.JsonResponse
 import com.dduptop.logistics.server.service.EMSService
 import com.dduptop.logistics.server.service.ServiceRunner
@@ -12,19 +11,18 @@ import java.net.URI
 
 @Service
 @ConfigurationProperties(prefix = "ems.order-line")
-class ServiceOrderLineRunnerProcessor : ServiceRunner<MsgContent<OrderLine>, JsonResponse> {
+class ServiceOrderLineRunnerProcessor : ServiceRunner<MsgContent, JsonResponse> {
     @Autowired
     private lateinit var emsService: EMSService
     @Autowired
-    private lateinit var emsXmlRequest: EMSXmlRequest
+    private lateinit var emsJsonRequest: EMSJsonRequest
 
     lateinit var url: String
 
     lateinit var appKey: String
 
-    override fun process(paramType: MsgContent<OrderLine>): JsonResponse {
+    override fun process(paramType: MsgContent): JsonResponse {
         val result = emsService.orderLine(URI(url), paramType)
-        println(result)
-        return emsXmlRequest.toBean(result, JsonResponse::class.java)
+        return emsJsonRequest.toBean(result, JsonResponse::class.java)
     }
 }

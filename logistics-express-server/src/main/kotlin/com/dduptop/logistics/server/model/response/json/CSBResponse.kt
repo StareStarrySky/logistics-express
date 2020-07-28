@@ -3,11 +3,11 @@ package com.dduptop.logistics.server.model.response.json
 import com.dduptop.logistics.server.model.common.BaseResponse
 import java.util.*
 
-class CSBRespose : BaseResponse() {
+class CSBResponse<T> : BaseResponse() {
     /**
      * Csb 返回的 body，包含了实际服务返回的内容
      */
-    var body: String? = null
+    var body: T? = null
 
     /**
      * 消息唯一流水号，为请求时填写的 serialNo
@@ -65,4 +65,9 @@ class CSBRespose : BaseResponse() {
      * csb 平台返回消息
      */
     var message: String? = null
+
+    /**
+     * 请求id
+     */
+    var requestId: String? = null
 }

@@ -6,7 +6,7 @@ class JsonResponse : BaseResponse() {
     /**
      * 接收方标识
      */
-    lateinit var receiveID: String
+    var receiveID: String? = null
 
     /**
      * 调用接口的执行结果
@@ -16,10 +16,10 @@ class JsonResponse : BaseResponse() {
     /**
      * 错误描述信息
      */
-    lateinit var errorDesc: String
+    var errorDesc: String? = null
 
     /**
      * 详细
      */
-    lateinit var responseItems: List<ResponseItem>
+    var responseItems: List<ResponseItem>? = null
 }

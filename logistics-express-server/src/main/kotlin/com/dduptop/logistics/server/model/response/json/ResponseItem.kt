@@ -1,60 +1,58 @@
 package com.dduptop.logistics.server.model.response.json
 
-import java.util.*
-
 class ResponseItem {
     /**
      * 运单号
      */
-    lateinit var traceNo: String
+    var traceNo: String? = null
 
     /**
      * 操作时间
      */
-    lateinit var opTime: Date
+    var opTime: String? = null
 
     /**
      * 操作码
      */
-    lateinit var opCode: String
+    var opCode: String? = null
 
     /**
      * 操作名
      */
-    lateinit var opName: String
+    var opName: String? = null
 
     /**
      * 操作描述
      */
-    lateinit var opDesc: String
+    var opDesc: String? = null
 
     /**
      * 操作网点省名
      */
-    lateinit var opOrgProvName: String
+    var opOrgProvName: String? = null
 
     /**
      * 操作网点城市
      */
-    lateinit var opOrgCity: String
+    var opOrgCity: String? = null
 
     /**
      * 操作网点编码
      */
-    lateinit var opOrgCode: String
+    var opOrgCode: String? = null
 
     /**
      * 操作网点名称
      */
-    lateinit var opOrgName: String
+    var opOrgName: String? = null
 
     /**
      * 操作员工号
      */
-    lateinit var operatorNo: String
+    var operatorNo: String? = null
 
     /**
      * 操作员工名称
      */
-    lateinit var operatorName: String
+    var operatorName: String? = null
 }
