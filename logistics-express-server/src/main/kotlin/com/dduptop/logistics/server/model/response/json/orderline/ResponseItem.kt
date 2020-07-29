@@ -1,4 +1,4 @@
-package com.dduptop.logistics.server.model.response.json
+package com.dduptop.logistics.server.model.response.json.orderline
 
 class ResponseItem {
     /**

@@ -1,4 +1,4 @@
-package com.dduptop.logistics.server.model.request.json
+package com.dduptop.logistics.server.model.request.json.classification
 
 import javax.validation.constraints.NotNull
 

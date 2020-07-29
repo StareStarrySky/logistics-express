@@ -2,7 +2,7 @@ package com.dduptop.logistics.server.service.impl
 
 import com.dduptop.logistics.server.service.ServiceRunner
 import com.dduptop.logistics.server.model.request.xml.BaseXmlRequest
-import com.dduptop.logistics.server.model.response.xml.OrderCreateResponse
+import com.dduptop.logistics.server.model.response.xml.create.OrderCreateResponse
 import com.dduptop.logistics.server.model.response.xml.XmlResponses
 import com.dduptop.logistics.server.service.EMSService
 import org.springframework.beans.factory.annotation.Autowired

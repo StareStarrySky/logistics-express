@@ -1,5 +1,6 @@
-package com.dduptop.logistics.server.model.response.xml
+package com.dduptop.logistics.server.model.response.xml.create
 
+import com.dduptop.logistics.server.model.response.xml.Response
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty
 
 /**

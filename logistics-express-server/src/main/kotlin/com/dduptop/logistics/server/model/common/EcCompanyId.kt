@@ -20,11 +20,6 @@ enum class EcCompanyId {
     JDPT,
 
     /**
-     * demo
-     */
-    CICPSSYSTEM,
-
-    /**
      * 武仲
      */
     whzcwyh

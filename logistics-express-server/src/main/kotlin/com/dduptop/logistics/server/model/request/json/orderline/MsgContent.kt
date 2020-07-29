@@ -1,4 +1,4 @@
-package com.dduptop.logistics.server.model.request.json
+package com.dduptop.logistics.server.model.request.json.orderline
 
 import com.dduptop.logistics.server.model.common.BaseRequest
 import com.dduptop.logistics.server.model.common.EcCompanyId

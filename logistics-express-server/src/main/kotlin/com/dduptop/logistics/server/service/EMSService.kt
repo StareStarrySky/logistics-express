@@ -4,8 +4,7 @@ import com.dduptop.logistics.client.config.FeignErrorDecoder
 import com.dduptop.logistics.client.config.FeignOAuth2RequestInterceptor
 import com.dduptop.logistics.client.config.FeignSSLConfig
 import com.dduptop.logistics.server.config.feign.FeignFormConfig
-import com.dduptop.logistics.server.model.request.json.MsgContent
-import com.dduptop.logistics.server.model.request.json.OrderLine
+import com.dduptop.logistics.server.model.request.json.orderline.MsgContent
 import com.dduptop.logistics.server.model.request.xml.BaseXmlRequest
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.cloud.openfeign.FeignClientsConfiguration

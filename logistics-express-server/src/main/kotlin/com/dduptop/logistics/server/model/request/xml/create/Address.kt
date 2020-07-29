@@ -1,4 +1,4 @@
-package com.dduptop.logistics.server.model.request.xml
+package com.dduptop.logistics.server.model.request.xml.create
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty
 import javax.validation.constraints.NotNull

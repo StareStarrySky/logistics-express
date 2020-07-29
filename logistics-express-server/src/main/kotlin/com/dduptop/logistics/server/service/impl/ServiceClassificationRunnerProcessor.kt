@@ -2,7 +2,7 @@ package com.dduptop.logistics.server.service.impl
 
 import com.dduptop.logistics.server.model.request.json.CSBRequest
 import com.dduptop.logistics.server.model.response.json.CSBResponse
-import com.dduptop.logistics.server.model.response.json.Classification
+import com.dduptop.logistics.server.model.response.json.classification.Classification
 import com.dduptop.logistics.server.service.CSBService
 import com.dduptop.logistics.server.service.ServiceRunner
 import org.springframework.beans.factory.annotation.Autowired

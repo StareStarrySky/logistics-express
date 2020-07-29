@@ -1,7 +1,7 @@
 package com.dduptop.logistics.server.service.impl
 
-import com.dduptop.logistics.server.model.request.json.MsgContent
-import com.dduptop.logistics.server.model.response.json.JsonResponse
+import com.dduptop.logistics.server.model.request.json.orderline.MsgContent
+import com.dduptop.logistics.server.model.response.json.orderline.JsonResponse
 import com.dduptop.logistics.server.service.EMSService
 import com.dduptop.logistics.server.service.ServiceRunner
 import org.springframework.beans.factory.annotation.Autowired
