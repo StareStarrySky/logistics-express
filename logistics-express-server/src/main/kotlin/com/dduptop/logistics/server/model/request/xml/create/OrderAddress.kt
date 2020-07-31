@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull
 /**
  * 参与人信息
  */
-class Address {
+class OrderAddress {
     /**
      * 用户姓名
      */

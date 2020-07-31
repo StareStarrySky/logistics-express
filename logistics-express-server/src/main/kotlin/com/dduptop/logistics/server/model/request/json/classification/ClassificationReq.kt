@@ -2,7 +2,7 @@ package com.dduptop.logistics.server.model.request.json.classification
 
 import com.dduptop.logistics.server.model.common.BaseRequest
 
-class Classification : BaseRequest() {
+class ClassificationReq : BaseRequest() {
     /**
      * 测试：发件/收件地址对 ID，单次请求中唯一
      * 正式：订单号
@@ -12,10 +12,10 @@ class Classification : BaseRequest() {
     /**
      * 发件地址
      */
-    lateinit var senderAddress: Address
+    lateinit var senderClaAddress: ClaAddress
 
     /**
      * 收件地址
      */
-    lateinit var receiverAddress: Address
+    lateinit var receiverClaAddress: ClaAddress
 }

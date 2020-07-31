@@ -1,8 +1,6 @@
-package com.dduptop.logistics.server.model.response.json.classification
+package com.dduptop.logistics.client.form
 
-import com.dduptop.logistics.server.model.common.BaseResponse
-
-class Classification : BaseResponse() {
+class ClassificationRes : BaseResponse() {
     /**
      * 请求是否成功
      */

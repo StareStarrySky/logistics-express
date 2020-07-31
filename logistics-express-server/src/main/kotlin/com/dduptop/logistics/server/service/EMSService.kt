@@ -1,9 +1,9 @@
 package com.dduptop.logistics.server.service
 
-import com.dduptop.logistics.client.config.FeignErrorDecoder
-import com.dduptop.logistics.client.config.FeignOAuth2RequestInterceptor
-import com.dduptop.logistics.client.config.FeignSSLConfig
+import com.dduptop.logistics.server.config.feign.FeignErrorDecoder
 import com.dduptop.logistics.server.config.feign.FeignFormConfig
+import com.dduptop.logistics.server.config.feign.FeignOAuth2RequestInterceptor
+import com.dduptop.logistics.server.config.feign.FeignSSLConfig
 import com.dduptop.logistics.server.model.request.json.orderline.MsgContent
 import com.dduptop.logistics.server.model.request.xml.BaseXmlRequest
 import org.springframework.cloud.openfeign.FeignClient

@@ -7,3 +7,6 @@ mylib:
   casbin:
     enforcer:
       enableLog: true
+logging:
+  level:
+    com.dduptop.logistics.server.service: debug

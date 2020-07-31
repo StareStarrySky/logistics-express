@@ -1,12 +1,9 @@
-package com.dduptop.logistics.server.model.request.json.classification
+package com.dduptop.logistics.client.form
 
-import javax.validation.constraints.NotNull
-
-class Address {
+class ClaAddress {
     /**
      * 省
      */
-    @NotNull
     lateinit var province: String
 
     /**
@@ -27,7 +24,6 @@ class Address {
     /**
      * 剩余详细地址
      */
-    @NotNull
     lateinit var detail: String
 
     /**

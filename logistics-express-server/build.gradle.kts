@@ -19,15 +19,18 @@ dependencies {
     implementation("com.zy.mylib:mylib-webmvc-security")
     implementation("com.zy.mylib:mylib-security-casbin-jwt")
     implementation("com.alibaba.csb.sdk:http-client:1.1.5.2")
+
+    implementation("io.github.openfeign:feign-httpclient")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
 //    implementation("org.flywaydb:flyway-core:6.5.0")
 //    implementation("mysql:mysql-connector-java:8.0.20")
-    implementation(project(":logistics-express-client"))
+//    implementation(project(":logistics-express-client"))
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
 
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 }
