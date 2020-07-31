@@ -30,14 +30,6 @@ class AuthRest : BaseRest() {
     final lateinit var appIds: List<String>
     final lateinit var secrets: List<String>
     final lateinit var enables: List<Boolean>
-    init {
-        val isEmpty = appIds.isEmpty() || secrets.isEmpty() || enables.isEmpty()
-        val notEqualNumber = appIds.size != secrets.size && appIds.size != enables.size
-
-        if (isEmpty || notEqualNumber) {
-            throw BusException.builder().build()
-        }
-    }
 
     @PostMapping("/login")
     fun login(@RequestParam("now") timestamp: Long, @RequestParam("signNonce") signNonce: String,
@@ -49,6 +41,7 @@ class AuthRest : BaseRest() {
     }
 
     private fun validUser(appId: String, timestamp: Long, signNonce: String, loginUser: LoginUser, sign: String) {
+        checkConfig()
 //        val apiUser = apiUserManager.findByAppId(appId)
         val apiUserIndex = appIds.indexOf(appId)
         if (!enables[apiUserIndex]) {
@@ -67,6 +60,15 @@ class AuthRest : BaseRest() {
         val pass = SignUtils.verifySign(sign, signContent, secrets[apiUserIndex])
         if (!pass) {
             throw BusException.builder().message("鉴权失败！").code("403").build()
+        }
+    }
+
+    private fun checkConfig() {
+        val isEmpty = appIds.isEmpty() || secrets.isEmpty() || enables.isEmpty()
+        val notEqualNumber = appIds.size != secrets.size && appIds.size != enables.size
+
+        if (isEmpty || notEqualNumber) {
+            throw BusException.builder().build()
         }
     }
 

@@ -11,12 +11,12 @@ mylib:
       enableLog: false
 ems:
   auth:
-    appId:
+    appIds:
       # 武汉仲裁委
       - 620e65bc427c32702917fd8dfaebb2df
-    secret:
+    secrets:
       - 9XHfSozZPfuwqlpcVMb6qkizEI5RlrzC
-    enable:
+    enables:
       - true
   create-order:
     url: https://211.156.195.17/iwaybillno-web/a/iwaybill/receive
