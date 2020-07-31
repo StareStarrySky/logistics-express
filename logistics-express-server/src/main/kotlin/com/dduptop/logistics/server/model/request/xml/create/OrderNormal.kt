@@ -2,8 +2,6 @@ package com.dduptop.logistics.server.model.request.xml.create
 
 import com.dduptop.logistics.server.model.common.BaseContent
 import com.dduptop.logistics.server.model.common.EcCompanyId
-import com.dduptop.logistics.server.model.request.xml.create.Address
-import com.dduptop.logistics.server.model.request.xml.create.Cargo
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement

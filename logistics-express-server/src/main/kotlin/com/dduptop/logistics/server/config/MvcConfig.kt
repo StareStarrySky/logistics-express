@@ -14,9 +14,7 @@ import com.zy.mylib.security.LoginUser
 import com.zy.mylib.security.Passport
 import com.zy.mylib.webmvc.security.LoginUserArgumentResolver
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.Lazy
 import org.springframework.data.domain.Page
 import org.springframework.http.converter.HttpMessageConverter
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter

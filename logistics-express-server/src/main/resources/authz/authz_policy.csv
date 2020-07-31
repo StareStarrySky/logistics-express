@@ -1,1 +1,2 @@
-p, *, /logistics-express/test, *, allow
+p, *, /logistics-express/auth/login, *, allow
+p, user, /logistics-express/test, *, allow
