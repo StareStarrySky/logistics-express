@@ -22,10 +22,11 @@ import java.net.URI
 )
 interface EMSService {
     /**
-     * 创建订单（订单下单取号接口+订单接入接口）
+     * 创建订单（订单下单取号接口）
+     * 批量取号
      */
     @PostMapping(consumes = [MediaType.APPLICATION_FORM_URLENCODED_VALUE])
-    fun createOrder(uri: URI, xmlRequest: BaseXmlRequest): String?
+    fun xmlRequest(uri: URI, xmlRequest: BaseXmlRequest): String?
 
     /**
      * 运单轨迹信息

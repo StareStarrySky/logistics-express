@@ -1,7 +1,7 @@
 package com.dduptop.logistics.client.form
 
 /**
- * 创建订单（订单下单取号接口+订单接入接口）
+ * 创建订单（订单下单取号接口）
  */
 class OrderNormal : BaseContent() {
     /**

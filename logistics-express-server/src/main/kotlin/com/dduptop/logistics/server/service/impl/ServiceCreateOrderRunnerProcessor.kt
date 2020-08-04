@@ -20,7 +20,7 @@ class ServiceCreateOrderRunnerProcessor : ServiceRunner<BaseXmlRequest, XmlRespo
     private lateinit var createOrder: ServiceCreateOrderRunnerConfig
 
     override fun process(paramType: BaseXmlRequest): XmlResponses<OrderCreateResponse> {
-        val result = emsService.createOrder(URI(createOrder.url), paramType)
+        val result = emsService.xmlRequest(URI(createOrder.url), paramType)
         return emsXmlRequest.toBean(result, XmlResponses::class.java, OrderCreateResponse::class.java) as XmlResponses<OrderCreateResponse>
     }
 }

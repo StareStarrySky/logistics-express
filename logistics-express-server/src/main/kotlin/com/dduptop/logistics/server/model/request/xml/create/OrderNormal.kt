@@ -8,7 +8,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import javax.validation.constraints.NotNull
 
 /**
- * 创建订单（订单下单取号接口+订单接入接口）
+ * 创建订单（订单下单取号接口）
  */
 @JacksonXmlRootElement(localName = "OrderNormal")
 class OrderNormal : BaseContent() {
