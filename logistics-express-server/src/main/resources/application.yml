@@ -34,3 +34,4 @@ ems:
   batch-no:
     url: https://211.156.195.17/iwaybillno-web/a/iwaybillBatch/receive
     key: key123xydJDPT
+    customer-no: 1100035161086

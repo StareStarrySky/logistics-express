@@ -9,4 +9,6 @@ class ServiceBatchNoRunnerConfig {
     lateinit var url: String
 
     lateinit var key: String
+
+    lateinit var customerNo: String
 }

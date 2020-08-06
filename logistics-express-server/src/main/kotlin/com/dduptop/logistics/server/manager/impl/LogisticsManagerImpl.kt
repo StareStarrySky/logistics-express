@@ -183,13 +183,14 @@ class LogisticsManagerImpl : LogisticsManager {
         val batchGetWaybillNo = BatchGetWaybillNo().apply {
             createdTime = DateUtils.getNowTime()
             eventSource = EcCompanyId.whzcwyh
-            customerNo = "1100035161086"
+//            customerNo = batchNoConfig.customerNo
+            customerNo = "90000001885440"
             mailType = "6"
             count = noCount
         }
         val xmlRequest = emsXmlRequest.buildReq(batchGetWaybillNo, batchNoConfig.key, MsgType.BatchGetWaybillNo)
         val responses = emsXmlRequest.sendRequest(serviceBatchNoRunner, xmlRequest)
 
-        return if (responses.result!!) RestMessage.SUCCESS.apply { message = responses.mailList } else RestMessage(responses.errorCode, responses.errorMsg)
+        return if (responses.result!!) RestMessage.SUCCESS.apply { message = responses.waybillNo } else RestMessage(responses.errorCode, responses.errorMsg)
     }
 }

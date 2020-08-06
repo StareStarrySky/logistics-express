@@ -35,6 +35,6 @@ class BatchNoResponses : BaseResponse() {
     /**
      * 邮件列表
      */
-    @JacksonXmlProperty(localName = "mailList")
-    var mailList: String? = null
+    @JacksonXmlProperty(localName = "waybill_no")
+    var waybillNo: String? = null
 }
