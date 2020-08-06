@@ -31,4 +31,9 @@ class LogisticsRest : BaseRest() {
     fun orderLine(@PathVariable("traceNo") traceNo: String): JsonResponse {
         return logisticsManager.orderLine(traceNo)
     }
+
+    @GetMapping("/batch_no")
+    fun batchNo(@RequestParam("noCount") noCount: Int): RestMessage {
+        return logisticsManager.batchNo(noCount)
+    }
 }

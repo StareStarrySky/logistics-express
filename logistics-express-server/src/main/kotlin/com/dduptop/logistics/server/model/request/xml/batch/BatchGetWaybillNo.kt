@@ -1,6 +1,7 @@
 package com.dduptop.logistics.server.model.request.xml.batch
 
 import com.dduptop.logistics.server.model.common.BaseContent
+import com.dduptop.logistics.server.model.common.EcCompanyId
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import javax.validation.constraints.NotNull
@@ -16,6 +17,13 @@ class BatchGetWaybillNo : BaseContent() {
     @NotNull
     @JacksonXmlProperty(localName = "CreatedTime")
     lateinit var createdTime: String
+
+    /**
+     * 渠道来源标识
+     */
+    @NotNull
+    @JacksonXmlProperty(localName = "eventSource")
+    lateinit var eventSource: EcCompanyId
 
     /**
      * 客户代码
@@ -40,5 +48,5 @@ class BatchGetWaybillNo : BaseContent() {
      */
     @NotNull
     @JacksonXmlProperty(localName = "count")
-    lateinit var count: String
+    var count: Int? = null
 }

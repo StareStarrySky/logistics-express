@@ -12,5 +12,10 @@ enum class MsgType {
     /**
      * 轨迹接口编码
      */
-    whzcwyh_JDPT_TRACE
+    whzcwyh_JDPT_TRACE,
+
+    /**
+     * 批量取号
+     */
+    BatchGetWaybillNo
 }

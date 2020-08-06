@@ -11,6 +11,7 @@ import com.dduptop.logistics.server.model.request.json.orderline.MsgContent
 import com.dduptop.logistics.server.model.request.json.orderline.OrderLine
 import com.dduptop.logistics.server.model.request.xml.BaseXmlRequest
 import com.dduptop.logistics.server.model.request.xml.XmlRequestContent
+import com.dduptop.logistics.server.model.request.xml.batch.BatchGetWaybillNo
 import com.dduptop.logistics.server.model.request.xml.create.OrderAddress
 import com.dduptop.logistics.server.model.request.xml.create.Cargo
 import com.dduptop.logistics.server.model.request.xml.create.OrderNormal
@@ -18,6 +19,7 @@ import com.dduptop.logistics.server.model.response.json.CSBResponse
 import com.dduptop.logistics.server.model.response.json.classification.ClassificationRes
 import com.dduptop.logistics.server.model.response.json.orderline.JsonResponse
 import com.dduptop.logistics.server.model.response.xml.XmlResponses
+import com.dduptop.logistics.server.model.response.xml.batch.BatchNoResponses
 import com.dduptop.logistics.server.model.response.xml.create.OrderCreateResponse
 import com.dduptop.logistics.server.service.ServiceRunner
 import com.dduptop.logistics.server.service.impl.*
@@ -58,6 +60,12 @@ class LogisticsManagerImpl : LogisticsManager {
 
     @Autowired
     private lateinit var serviceOrderLineRunner: ServiceRunner<MsgContent, JsonResponse>
+
+    @Autowired
+    private lateinit var batchNoConfig: ServiceBatchNoRunnerConfig
+
+    @Autowired
+    private lateinit var serviceBatchNoRunner: ServiceBatchNoRunnerProcessor
 
     override fun createOrder(form: OrderNormal): RestMessage {
         val content = XmlRequestContent<OrderNormal>().apply {
@@ -101,22 +109,7 @@ class LogisticsManagerImpl : LogisticsManager {
                 })
             }
         }
-
-        val xml = try {
-            emsXmlRequest.xmlMapper.writeValueAsString(content.logisticsInterface)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            throw BusException.builder().httpStatus(500).message(e.message).build()
-        }
-//        val xmlFull = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>$xml"
-//        val digest = Base64Utils.encodeToUrlSafeString(HashUtils.getMd5("$xmlFull$parentId").toByteArray(StandardCharsets.UTF_8))
-        val digest = SignUtils.makeSignEMS("$xml${createOrderConfig.parentId}")
-        val xmlRequest = BaseXmlRequest().apply {
-            ecCompanyId = EcCompanyId.whzcwyh
-            msg_type = MsgType.ORDERCREATE
-            logistics_interface = xml
-            data_digest = digest
-        }
+        val xmlRequest = emsXmlRequest.buildReq(content.logisticsInterface, createOrderConfig.parentId, MsgType.ORDERCREATE)
 
         val responses = emsXmlRequest.sendRequest(serviceCreateOrderRunner, xmlRequest)
 
@@ -184,5 +177,19 @@ class LogisticsManagerImpl : LogisticsManager {
         }
 
         return emsJsonRequest.sendRequest(serviceOrderLineRunner, reqParam)
+    }
+
+    override fun batchNo(noCount: Int): RestMessage {
+        val batchGetWaybillNo = BatchGetWaybillNo().apply {
+            createdTime = DateUtils.getNowTime()
+            eventSource = EcCompanyId.whzcwyh
+            customerNo = "1100035161086"
+            mailType = "6"
+            count = noCount
+        }
+        val xmlRequest = emsXmlRequest.buildReq(batchGetWaybillNo, batchNoConfig.key, MsgType.BatchGetWaybillNo)
+        val responses = emsXmlRequest.sendRequest(serviceBatchNoRunner, xmlRequest)
+
+        return if (responses.result!!) RestMessage.SUCCESS.apply { message = responses.mailList } else RestMessage(responses.errorCode, responses.errorMsg)
     }
 }

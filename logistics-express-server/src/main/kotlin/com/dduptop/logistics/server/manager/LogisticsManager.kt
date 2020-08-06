@@ -22,4 +22,9 @@ interface LogisticsManager {
      * 运单轨迹信息
      */
     fun orderLine(traceNo: String): JsonResponse
+
+    /**
+     * 批量取号
+     */
+    fun batchNo(noCount: Int): RestMessage
 }

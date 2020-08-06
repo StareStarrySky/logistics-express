@@ -12,11 +12,15 @@ import java.net.URI
 class ServiceBatchNoRunnerProcessor : ServiceRunner<BaseXmlRequest, BatchNoResponses> {
     @Autowired
     private lateinit var emsService: EMSService
+
     @Autowired
     private lateinit var emsXmlRequest: EMSXmlRequest
 
+    @Autowired
+    private lateinit var batchNo: ServiceBatchNoRunnerConfig
+
     override fun process(paramType: BaseXmlRequest): BatchNoResponses {
-        val result = emsService.xmlRequest(URI(""), paramType)
+        val result = emsService.xmlRequest(URI(batchNo.url), paramType)
         return emsXmlRequest.toBean(result, BatchNoResponses::class.java)
     }
 }
