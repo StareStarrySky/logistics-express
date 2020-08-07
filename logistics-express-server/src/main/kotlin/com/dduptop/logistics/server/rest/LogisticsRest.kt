@@ -3,6 +3,7 @@ package com.dduptop.logistics.server.rest
 import com.dduptop.logistics.server.manager.LogisticsManager
 import com.dduptop.logistics.server.model.request.json.classification.ClassificationReq
 import com.dduptop.logistics.server.model.request.xml.create.OrderNormal
+import com.dduptop.logistics.server.model.request.xml.insert.OrderNormals
 import com.dduptop.logistics.server.model.response.json.CSBResponse
 import com.dduptop.logistics.server.model.response.json.classification.ClassificationRes
 import com.dduptop.logistics.server.model.response.json.orderline.JsonResponse
@@ -18,12 +19,12 @@ class LogisticsRest : BaseRest() {
     private lateinit var logisticsManager: LogisticsManager
 
     @PostMapping("/create_order")
-    fun createOrder(form: OrderNormal): RestMessage {
+    fun createOrder(@RequestBody form: OrderNormal): RestMessage {
         return logisticsManager.createOrder(form)
     }
 
     @PostMapping("/classification")
-    fun classification(req: List<ClassificationReq>): CSBResponse<ClassificationRes> {
+    fun classification(@RequestBody req: List<ClassificationReq>): CSBResponse<ClassificationRes> {
         return logisticsManager.classification(req)
     }
 
@@ -35,5 +36,10 @@ class LogisticsRest : BaseRest() {
     @GetMapping("/batch_no")
     fun batchNo(@RequestParam("noCount") noCount: Int): RestMessage {
         return logisticsManager.batchNo(noCount)
+    }
+
+    @PostMapping("/order_insert")
+    fun orderInsert(@RequestBody form: OrderNormals): RestMessage {
+        return logisticsManager.orderInsert(form)
     }
 }

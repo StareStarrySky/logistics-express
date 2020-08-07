@@ -2,6 +2,7 @@ package com.dduptop.logistics.server.manager
 
 import com.dduptop.logistics.server.model.request.json.classification.ClassificationReq
 import com.dduptop.logistics.server.model.request.xml.create.OrderNormal
+import com.dduptop.logistics.server.model.request.xml.insert.OrderNormals
 import com.dduptop.logistics.server.model.response.json.CSBResponse
 import com.dduptop.logistics.server.model.response.json.classification.ClassificationRes
 import com.dduptop.logistics.server.model.response.json.orderline.JsonResponse
@@ -27,4 +28,9 @@ interface LogisticsManager {
      * 批量取号
      */
     fun batchNo(noCount: Int): RestMessage
+
+    /**
+     * 订单接入
+     */
+    fun orderInsert(form: OrderNormals): RestMessage
 }

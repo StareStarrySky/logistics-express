@@ -35,3 +35,6 @@ ems:
     url: https://211.156.195.17/iwaybillno-web/a/iwaybillBatch/receive
     key: key123xydJDPT
     customer-no: 1100035161086
+  order-insert:
+    url: https://211.156.195.17/ebiistandard-job/a/ChinaPostApi/OrderCreate
+    parent-id: key123xydJDPT

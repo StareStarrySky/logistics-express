@@ -73,10 +73,16 @@ class OrderNormal : BaseContent() {
     var batchNo: String? = null
 
     /**
-     * 运单号
+     * 运单号(下单取号接口)
      */
     @JacksonXmlProperty(localName = "waybill_no")
     var waybillNo: String? = null
+
+    /**
+     * 运单号(订单接入接口)
+     */
+    @JacksonXmlProperty(localName = "mailNo")
+    var mailNo: String? = null
 
     /**
      * 一票多件标志
@@ -107,12 +113,27 @@ class OrderNormal : BaseContent() {
     lateinit var logisticsOrderNo: String
 
     /**
-     * 业务产品分类（可售卖产品代码）
+     * 业务产品分类（可售卖产品代码）(下单取号接口)
      * 1：标准快递 2：快递包裹 3：代收/到付（标准快递）
      */
-    @NotNull
     @JacksonXmlProperty(localName = "biz_product_no")
-    lateinit var bizProductNo: String
+    var bizProductNo: String? = null
+
+    /**
+     * 业务产品分类（可售卖产品代码）(订单接入接口)
+     * 1：标准快递 2：快递包裹 3：代收/到付（标准快递）
+     */
+    @JacksonXmlProperty(localName = "product_type")
+    var productType: String? = null
+
+    /**
+     * 项目标识
+     * "山西公安户籍（SXGAHJ）
+     * 公安网上车管（GAWSCG）
+     * 苹果（APPLE）"
+     */
+    @JacksonXmlProperty(localName = "project_id")
+    var projectId: EcCompanyId? = null
 
     /**
      * 寄件人信息

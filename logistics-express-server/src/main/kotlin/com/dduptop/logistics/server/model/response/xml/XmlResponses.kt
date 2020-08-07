@@ -11,4 +11,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 class XmlResponses<T : Response> : BaseResponse() {
     @JacksonXmlProperty(localName = "responseItems")
     var responseItems: ResponseItems<T>? = null
+
+    @JacksonXmlProperty(localName = "logisticProviderID")
+    var logisticProviderID: String? = null
 }
