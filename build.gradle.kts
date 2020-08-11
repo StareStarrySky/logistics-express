@@ -40,6 +40,15 @@ allprojects {
         implementation(platform("com.zy.mylib:mylib-dependencies:$mylibVersion"))
     }
 
+    configure<SourceSetContainer> {
+        named("main") {
+            java.srcDir("src/main/kotlin")
+        }
+        named("test") {
+            java.srcDir("src/test/kotlin")
+        }
+    }
+
     tasks.withType<Test> {
         useJUnitPlatform()
     }
