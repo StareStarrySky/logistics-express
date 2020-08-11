@@ -20,7 +20,7 @@ buildscript {
 
 allprojects {
     group = "com.dduptop"
-    version = "0.0.1-SNAPSHOT"
+    version = "0.0.2"
 
     val mylibVersion = "1.12.2"
 

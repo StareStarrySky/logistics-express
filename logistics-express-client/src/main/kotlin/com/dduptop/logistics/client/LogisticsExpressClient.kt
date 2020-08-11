@@ -1,5 +1,6 @@
 package com.dduptop.logistics.client
 
+import com.dduptop.logistics.client.config.FeignErrorDecoder
 import com.dduptop.logistics.client.config.FeignOAuth2RequestInterceptor
 import com.dduptop.logistics.client.form.*
 import com.zy.mylib.security.LoginUser
@@ -8,12 +9,14 @@ import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.cloud.openfeign.FeignClientsConfiguration
 import org.springframework.web.bind.annotation.*
 
-@FeignClient(name = "logisticsExpress", url = "https://this-is-a-placeholder.com/logisticsExpress",
+@FeignClient(name = "logisticsExpress", url = "\${logistics-express.url}",
     contextId = "logisticsExpress",
+    path = "/logistics",
     configuration = [
         FeignOAuth2RequestInterceptor::class,
         FeignClientsConfiguration::class
-    ]
+    ],
+    fallback = FeignErrorDecoder::class
 )
 interface LogisticsExpressClient {
     /**
@@ -31,6 +34,12 @@ interface LogisticsExpressClient {
     @PostMapping("/classification")
     fun classification(req: List<ClassificationReq>): CSBResponse<ClassificationRes>
 
-    @GetMapping("/create_order/{traceNo}")
-    fun createOrder(@PathVariable("traceNo") traceNo: String): JsonResponse
+    @GetMapping("/order_line/{traceNo}")
+    fun orderLine(@PathVariable("traceNo") traceNo: String): JsonResponse
+
+    @GetMapping("/batch_no")
+    fun batchNo(@RequestParam("noCount") noCount: Int): RestMessage
+
+    @PostMapping("/order_insert")
+    fun orderInsert(@RequestBody form: OrderNormals): RestMessage
 }
