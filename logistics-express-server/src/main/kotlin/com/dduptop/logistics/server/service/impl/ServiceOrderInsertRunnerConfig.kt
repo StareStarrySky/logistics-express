@@ -9,4 +9,6 @@ class ServiceOrderInsertRunnerConfig {
     lateinit var url: String
 
     lateinit var parentId: String
+
+    lateinit var senderNo: String
 }

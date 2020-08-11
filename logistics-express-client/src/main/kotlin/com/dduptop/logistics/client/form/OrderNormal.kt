@@ -7,7 +7,7 @@ class OrderNormal : BaseContent() {
     /**
      * 订单接入时间 yyyy-mm-dd hh:mm:ss
      */
-    lateinit var createdTime: String
+    var createdTime: String? = null
 
     /**
      * 物流承运方
@@ -21,12 +21,12 @@ class OrderNormal : BaseContent() {
      * 基础产品代码
      * 1 - 标快 2 - 快包
      */
-    lateinit var baseProductNo: String
+    var baseProductNo: String? = null
 
     /**
      * 渠道来源标识
      */
-    lateinit var ecommerceNo: EcCompanyId
+    var ecommerceNo: EcCompanyId? = null
 
     /**
      * 电商客户标识
@@ -52,9 +52,14 @@ class OrderNormal : BaseContent() {
     var batchNo: String? = null
 
     /**
-     * 运单号
+     * 运单号(下单取号接口)
      */
     var waybillNo: String? = null
+
+    /**
+     * 运单号(订单接入接口)
+     */
+    var mailNo: String? = null
 
     /**
      * 一票多件标志
@@ -77,13 +82,27 @@ class OrderNormal : BaseContent() {
     /**
      * 物流订单号（自定义）
      */
-    lateinit var logisticsOrderNo: String
+    var logisticsOrderNo: String? = null
 
     /**
-     * 业务产品分类（可售卖产品代码）
+     * 业务产品分类（可售卖产品代码）(下单取号接口)
      * 1：标准快递 2：快递包裹 3：代收/到付（标准快递）
      */
-    lateinit var bizProductNo: String
+    var bizProductNo: String? = null
+
+    /**
+     * 业务产品分类（可售卖产品代码）(订单接入接口)
+     * 1：标准快递 2：快递包裹 3：代收/到付（标准快递）
+     */
+    var productType: String? = null
+
+    /**
+     * 项目标识
+     * "山西公安户籍（SXGAHJ）
+     * 公安网上车管（GAWSCG）
+     * 苹果（APPLE）"
+     */
+    var projectId: EcCompanyId? = null
 
     /**
      * 寄件人信息
