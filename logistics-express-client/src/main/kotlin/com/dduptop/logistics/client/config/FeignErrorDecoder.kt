@@ -4,18 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.zy.mylib.base.exception.BusException
 import feign.Response
 import feign.codec.ErrorDecoder
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
 
 @Configuration
 open class FeignErrorDecoder : ErrorDecoder {
-    @Autowired
-    lateinit var mapper: ObjectMapper
-
     override fun decode(methodKey: String, response: Response): Exception? {
         return try {
             val json = response.body().asReader().readText()
-            val map = mapper.readValue(json, Map::class.java)
+            val map = ObjectMapper().readValue(json, Map::class.java)
             BusException.builder()
                 .httpStatus(response.status())
                 .code(map["code"] as String?)
