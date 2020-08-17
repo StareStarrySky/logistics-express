@@ -15,8 +15,8 @@ job-build:
     - mkdir -p ${CI_PROJECT_DIR}/.gradle
     - |
       cat > ${CI_PROJECT_DIR}/.gradle/gradle.properties << EOF
-        nexusUser=deploy
-        nexusPwd=ystfin!@#$
+        nexusUser=not
+        nexusPwd=not
       EOF
     - chmod +x ./gradlew
     - ./gradlew :logistics-express-server:bootJar
