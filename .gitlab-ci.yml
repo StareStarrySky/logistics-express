@@ -30,8 +30,8 @@ job-pull:
     - mkdir -p ${CI_PROJECT_DIR}/.gradle
     - |
       cat > ${CI_PROJECT_DIR}/.gradle/gradle.properties << EOF
-        nexusUser=not
-        nexusPwd=not
+        nexusUser=deploy
+        nexusPwd=ystfin!@#$
       EOF
     - chmod +x ./gradlew
     - ./gradlew :logistics-express-client:publish
