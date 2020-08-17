@@ -58,10 +58,10 @@ tasks {
 tasks.register<DockerBuildImage>("buildImage") {
     dependsOn("bootJar")
     inputDir.set(file("."))
-    images.add("ccr.ccs.tencentyun.com/micro-service/file-service:${project.version}")
+    images.add("ccr.ccs.tencentyun.com/logistics-express-platform/logistics-express:${project.version}")
 }
 
 tasks.register<DockerPushImage>("pushImage") {
     dependsOn("buildImage")
-    images.add("ccr.ccs.tencentyun.com/micro-service/file-service:${project.version}")
+    images.add("ccr.ccs.tencentyun.com/logistics-express-platform/logistics-express:${project.version}")
 }
