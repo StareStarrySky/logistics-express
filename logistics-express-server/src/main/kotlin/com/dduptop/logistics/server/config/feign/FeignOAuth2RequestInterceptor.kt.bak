@@ -9,18 +9,18 @@ import org.springframework.web.context.request.ServletRequestAttributes
 import javax.servlet.http.HttpServletRequest
 
 @Configuration
-open class FeignOAuth2RequestInterceptor : RequestInterceptor {
+class FeignOAuth2RequestInterceptor : RequestInterceptor {
     companion object {
         private const val HEADER_TOKEN_KEY = "token"
     }
 
-    protected open fun getRequest(): HttpServletRequest {
+    protected fun getRequest(): HttpServletRequest {
         val attrs = RequestContextHolder.getRequestAttributes() as ServletRequestAttributes?
             ?: throw BusException.builder().message("当前线程中不存在 Request 上下文").build()
         return attrs.request
     }
 
-    protected open fun getToken(): String? {
+    protected fun getToken(): String? {
         return getRequest().getHeader(HEADER_TOKEN_KEY)
     }
 

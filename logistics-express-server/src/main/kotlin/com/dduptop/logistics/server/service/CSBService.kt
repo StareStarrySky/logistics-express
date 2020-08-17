@@ -1,9 +1,9 @@
 package com.dduptop.logistics.server.service
 
 import com.dduptop.logistics.server.config.feign.FeignCSBClientConfig
-import com.dduptop.logistics.server.config.feign.FeignErrorDecoder
-import com.dduptop.logistics.server.config.feign.FeignOAuth2RequestInterceptor
 import com.dduptop.logistics.server.model.request.json.CSBRequest
+import com.dduptop.micro.service.client.FeignErrorDecoder
+import com.dduptop.micro.service.client.FeignOAuth2RequestInterceptor
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.cloud.openfeign.FeignClientsConfiguration
 import org.springframework.web.bind.annotation.PostMapping

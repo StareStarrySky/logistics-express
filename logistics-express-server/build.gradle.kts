@@ -18,7 +18,7 @@ dependencies {
     implementation("com.zy.mylib:mylib-mvc-logger")
     implementation("com.zy.mylib:mylib-webmvc-security")
     implementation("com.zy.mylib:mylib-security-casbin-jwt")
-    implementation("com.dduptop:document-service-client:1.0.31")
+    implementation("com.dduptop:document-service-client:1.0.32")
     implementation("com.alibaba.csb.sdk:http-client:1.1.5.2")
 
     implementation("io.github.openfeign:feign-httpclient")

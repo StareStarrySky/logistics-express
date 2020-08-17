@@ -9,12 +9,12 @@ import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.impl.client.HttpClientBuilder
 import org.apache.http.ssl.SSLContextBuilder
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
+//import org.springframework.context.annotation.Configuration
 
-@Configuration
-open class FeignSSLConfig {
+//@Configuration
+class FeignSSLConfig {
     @Bean
-    open fun feignClient(): Client {
+    fun feignClient(): Client {
         return ApacheHttpClient(getHttpClient())
     }
 
