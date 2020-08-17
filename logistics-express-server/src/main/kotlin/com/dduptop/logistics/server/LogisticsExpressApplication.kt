@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan
 
 @SpringBootApplication(exclude = [DataSourceAutoConfiguration::class, HibernateJpaAutoConfiguration::class])
 @ComponentScan(basePackages = ["com.dduptop.**", "com.zy.mylib.**"])
-@EnableFeignClients
+@EnableFeignClients(basePackages = ["com.dduptop.**", "com.zy.mylib.**"])
 class LogisticsExpressApplication
 
 fun main(args: Array<String>) {

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.zy.mylib.security.LoginUser
 import com.zy.mylib.webmvc.model.RestMessage
 import org.apache.http.Consts
+import org.apache.http.HttpResponse
 import org.apache.http.client.HttpClient
 import org.apache.http.client.config.RequestConfig
 import org.apache.http.client.methods.HttpGet
@@ -25,38 +26,44 @@ class LogisticsExpressNotBootClient(var baseUrl: String, var appId: String, var 
 
     fun login(timestamp: Long, signNonce: String, sign: String, loginUser: LoginUser): RestMessage {
         val url = "${baseUrl}/logistics?now=${timestamp}&signNonce=${signNonce}&sign=${sign}&appId=${appId}"
-        val result = this.executePost(url, loginUser)
+        val result = this.executePostJson(url, loginUser)
         return this.toBean(result, RestMessage::class.java)
     }
 
     fun createOrder(form: OrderNormal): RestMessage {
         val url = "${baseUrl}/logistics/create_order"
-        val result = this.executePost(url, form)
+        val result = this.executePostJson(url, form)
         return this.toBean(result, RestMessage::class.java)
     }
 
     fun classification(req: List<ClassificationReq>): CSBResponse<ClassificationRes> {
         val url = "${baseUrl}/logistics/classification"
-        val result = this.executePost(url, req)
+        val result = this.executePostJson(url, req)
         return this.toBean(result, CSBResponse::class.java, ClassificationRes::class.java) as CSBResponse<ClassificationRes>
     }
 
     fun orderLine(traceNo: String): JsonResponse {
         val url = "${baseUrl}/logistics/order_line/${traceNo}"
-        val result = this.executeGet(url)
+        val result = this.executeGetJson(url)
         return this.toBean(result, JsonResponse::class.java)
     }
 
     fun batchNo(noCount: Int): RestMessage {
         val url = "${baseUrl}/logistics/batch_no?${noCount}"
-        val result = this.executeGet(url)
+        val result = this.executeGetJson(url)
         return this.toBean(result, RestMessage::class.java)
     }
 
     fun orderInsert(form: OrderNormals): RestMessage {
         val url = "${baseUrl}/logistics/order_insert"
-        val result = this.executePost(url, form)
+        val result = this.executePostJson(url, form)
         return this.toBean(result, RestMessage::class.java)
+    }
+
+    fun printBill(sourceFileType: String, form: BillModel): ByteArray {
+        val url = "${baseUrl}/logistics/print_bill"
+        val result = this.executePost(url, form)
+        return EntityUtils.toByteArray(result.entity)
     }
 
     @Throws(JsonProcessingException::class, JsonMappingException::class)
@@ -66,7 +73,7 @@ class LogisticsExpressNotBootClient(var baseUrl: String, var appId: String, var 
     }
 
     @Throws(Exception::class)
-    private fun executeGet(url: String): String? {
+    private fun executeGetJson(url: String): String? {
         val builder = SSLContextBuilder()
         builder.loadTrustMaterial(null) { _, _ -> true }
         val sslsf = SSLConnectionSocketFactory(builder.build())
@@ -79,20 +86,24 @@ class LogisticsExpressNotBootClient(var baseUrl: String, var appId: String, var 
         return EntityUtils.toString(response.entity, Consts.UTF_8.name())
     }
 
+    private fun executePostJson(url: String, apiRequest: Any): String? {
+        val httpResponse = this.executePost(url, apiRequest)
+        return EntityUtils.toString(httpResponse.entity, Consts.UTF_8.name())
+    }
+
     @Throws(Exception::class)
-    private fun executePost(url: String, apiRequest: Any): String? {
+    private fun executePost(url: String, apiRequest: Any): HttpResponse {
         val json = objectMapper.writeValueAsString(apiRequest)
         val builder = SSLContextBuilder()
         builder.loadTrustMaterial(null) { _, _ -> true }
         val sslsf = SSLConnectionSocketFactory(builder.build())
-        val httpClient: HttpClient = HttpClients.custom().setSSLSocketFactory(sslsf).build()
+        val httpClient = HttpClients.custom().setSSLSocketFactory(sslsf).build()
         val post = HttpPost(url)
         post.addHeader("Accept", "application/json")
         val entity = StringEntity(json, ContentType.APPLICATION_JSON)
         post.entity = entity
         // 30秒超时
         post.config = config
-        val response = httpClient.execute(post)
-        return EntityUtils.toString(response.entity, Consts.UTF_8.name())
+        return httpClient.execute(post)
     }
 }

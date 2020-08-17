@@ -18,6 +18,7 @@ dependencies {
     implementation("com.zy.mylib:mylib-mvc-logger")
     implementation("com.zy.mylib:mylib-webmvc-security")
     implementation("com.zy.mylib:mylib-security-casbin-jwt")
+    implementation("com.dduptop:document-service-client:1.0.31")
     implementation("com.alibaba.csb.sdk:http-client:1.1.5.2")
 
     implementation("io.github.openfeign:feign-httpclient")
@@ -31,7 +32,7 @@ dependencies {
     }
 
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
-    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+    implementation("org.springframework.boot:spring-boot-starter-freemarker")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 }
 

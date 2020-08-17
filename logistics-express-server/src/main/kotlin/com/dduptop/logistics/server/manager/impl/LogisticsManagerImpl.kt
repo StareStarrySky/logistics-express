@@ -1,6 +1,7 @@
 package com.dduptop.logistics.server.manager.impl
 
 import com.dduptop.logistics.server.manager.LogisticsManager
+import com.dduptop.logistics.server.model.BillModel
 import com.dduptop.logistics.server.model.common.EcCompanyId
 import com.dduptop.logistics.server.model.common.MsgType
 import com.dduptop.logistics.server.model.common.WrongCodeBus
@@ -24,10 +25,14 @@ import com.dduptop.logistics.server.model.response.xml.insert.OrderInsertRespons
 import com.dduptop.logistics.server.service.ServiceRunner
 import com.dduptop.logistics.server.service.impl.*
 import com.dduptop.logistics.server.util.SignUtils
+import com.dduptop.logistics.server.util.WordUtils
+import com.dduptop.service.document.client.DocumentClient
 import com.zy.mylib.utils.DateUtils
 import com.zy.mylib.utils.HashUtils
 import com.zy.mylib.webmvc.model.RestMessage
+import org.apache.commons.beanutils.BeanUtils
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.cglib.beans.BeanMap
 import org.springframework.stereotype.Service
 import org.springframework.util.Base64Utils
 import java.net.URLEncoder
@@ -71,6 +76,9 @@ class LogisticsManagerImpl : LogisticsManager {
 
     @Autowired
     private lateinit var serviceOrderInsertRunner: ServiceRunner<BaseXmlRequest, XmlResponses<OrderInsertResponse>>
+
+    @Autowired
+    private lateinit var documentClient: DocumentClient
 
     override fun createOrder(form: OrderNormal): RestMessage {
         val logisticsInterface = OrderNormal().apply {
@@ -255,5 +263,10 @@ class LogisticsManagerImpl : LogisticsManager {
         } else {
             RestMessage.UNKNOW_ERROR.apply { message = resp.reason }
         }
+    }
+
+    override fun printBill(sourceFileType: String, form: BillModel): ByteArray {
+        val docxByteArray = WordUtils.templateProcess(WordUtils.bean2Map(form), "bill.ftl")
+        return documentClient.convert(sourceFileType, docxByteArray)
     }
 }

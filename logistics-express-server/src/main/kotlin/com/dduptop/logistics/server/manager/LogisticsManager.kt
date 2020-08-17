@@ -1,5 +1,6 @@
 package com.dduptop.logistics.server.manager
 
+import com.dduptop.logistics.server.model.BillModel
 import com.dduptop.logistics.server.model.request.json.classification.ClassificationReq
 import com.dduptop.logistics.server.model.request.xml.create.OrderNormal
 import com.dduptop.logistics.server.model.request.xml.insert.OrderNormals
@@ -33,4 +34,9 @@ interface LogisticsManager {
      * 订单接入
      */
     fun orderInsert(form: OrderNormals): RestMessage
+
+    /**
+     * 获取打印面单的pdf
+     */
+    fun printBill(sourceFileType: String, form: BillModel): ByteArray
 }

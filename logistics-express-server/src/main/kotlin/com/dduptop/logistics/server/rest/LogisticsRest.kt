@@ -1,6 +1,7 @@
 package com.dduptop.logistics.server.rest
 
 import com.dduptop.logistics.server.manager.LogisticsManager
+import com.dduptop.logistics.server.model.BillModel
 import com.dduptop.logistics.server.model.request.json.classification.ClassificationReq
 import com.dduptop.logistics.server.model.request.xml.create.OrderNormal
 import com.dduptop.logistics.server.model.request.xml.insert.OrderNormals
@@ -41,5 +42,11 @@ class LogisticsRest : BaseRest() {
     @PostMapping("/order_insert")
     fun orderInsert(@RequestBody form: OrderNormals): RestMessage {
         return logisticsManager.orderInsert(form)
+    }
+
+    @PostMapping("/print_bill")
+    fun printBill(@RequestParam("sourceFileType") sourceFileType: String,
+                  @RequestBody form: BillModel): ByteArray {
+        return logisticsManager.printBill(sourceFileType , form)
     }
 }
