@@ -35,6 +35,7 @@ job-pull:
       EOF
     - chmod +x ./gradlew
     - ./gradlew :logistics-express-client:publish
+    - ./gradlew :logistics-express-client-not-boot:publish
     - ./gradlew :logistics-express-server:pushImage
   tags:
     - mvn
