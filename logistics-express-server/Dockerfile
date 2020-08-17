@@ -1,4 +1,4 @@
-FROM openjdk:11.0.7-jdk
+FROM openjdk:8-alpine
 ADD build/libs/app.jar /
 WORKDIR /
 CMD ["java", "-jar", "app.jar"]
