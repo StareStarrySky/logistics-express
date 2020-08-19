@@ -15,8 +15,12 @@ base {
 //extra["springCloudVersion"] = "Hoxton.SR6"
 
 dependencies {
-    implementation("org.apache.httpcomponents:httpclient:4.5.9")
-    api("com.zy.mylib:mylib-webmvc-security")
+    implementation("org.apache.httpcomponents:httpclient") {
+        exclude(group = "ch.qos.logback", module = "logback-classic")
+    }
+    api("com.zy.mylib:mylib-security") {
+        exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
+    }
 }
 
 //dependencyManagement {

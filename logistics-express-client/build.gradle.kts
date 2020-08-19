@@ -16,8 +16,8 @@ base {
 
 dependencies {
     api("org.springframework.cloud:spring-cloud-starter-openfeign")
-    api("io.github.openfeign:feign-httpclient")
-    api("com.zy.mylib:mylib-webmvc-security")
+    implementation("io.github.openfeign:feign-httpclient")
+    implementation("com.zy.mylib:mylib-security")
 }
 
 //dependencyManagement {
