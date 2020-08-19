@@ -15,9 +15,10 @@ base {
 //extra["springCloudVersion"] = "Hoxton.SR6"
 
 dependencies {
-    api("org.springframework.cloud:spring-cloud-starter-openfeign")
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
     implementation("io.github.openfeign:feign-httpclient")
-    implementation("com.zy.mylib:mylib-security")
+    api("com.zy.mylib:mylib-security")
+    api("com.zy.mylib:mylib-utils")
 }
 
 //dependencyManagement {

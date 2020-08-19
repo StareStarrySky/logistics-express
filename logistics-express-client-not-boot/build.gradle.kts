@@ -21,6 +21,7 @@ dependencies {
     api("com.zy.mylib:mylib-security") {
         exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
     }
+    api("com.zy.mylib:mylib-utils")
 }
 
 //dependencyManagement {
