@@ -10,3 +10,5 @@ mylib:
 logging:
   level:
     com.dduptop.logistics.server.service: debug
+    com.dduptop.service.document.client: debug
+    com.dduptop.service.auth.client: debug

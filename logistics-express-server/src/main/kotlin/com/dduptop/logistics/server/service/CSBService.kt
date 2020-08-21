@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader
 
 @FeignClient(name = "ems", contextId = "csb", url = "\${ems.classification.url}",
-    configuration = [FeignOAuth2RequestInterceptor::class,
-        FeignClientsConfiguration::class,
+    configuration = [FeignClientsConfiguration::class,
         FeignCSBClientConfig::class
     ],
     fallback = FeignErrorDecoder::class

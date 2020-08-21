@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import java.net.URI
 
 @FeignClient(name = "ems", contextId = "ems", url = "https://this-is-a-placeholder.com/",
-    configuration = [FeignOAuth2RequestInterceptor::class,
-        FeignClientsConfiguration::class,
+    configuration = [FeignClientsConfiguration::class,
         FeignSSLConfig::class,
         FeignFormConfig::class
     ],

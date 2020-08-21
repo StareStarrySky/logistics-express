@@ -5,6 +5,15 @@ server:
 spring:
   redis:
     host: redis
+micro-service:
+  app-id: DbpZtLoZDwPEbNyBxF9MZjXbOMUtKJzV
+  secret: KLpBRe8BqhIGTJ6ldj7qaWQaKmVIpcvk
+  base-url: https://msgtest.dduptop.com
+  system: logistics
+  auth-service-config:
+    url: /auth
+  document-service-config:
+    url: /document
 mylib:
   casbin:
     enforcer:

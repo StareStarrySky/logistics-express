@@ -1,5 +1,6 @@
 package com.dduptop.logistics.server.manager.impl
 
+import com.dduptop.logistics.server.config.feign.FeignBeanConfig
 import com.dduptop.logistics.server.manager.LogisticsManager
 import com.dduptop.logistics.server.model.BillModel
 import com.dduptop.logistics.server.model.common.EcCompanyId
@@ -26,17 +27,20 @@ import com.dduptop.logistics.server.service.ServiceRunner
 import com.dduptop.logistics.server.service.impl.*
 import com.dduptop.logistics.server.util.SignUtils
 import com.dduptop.logistics.server.util.WordUtils
+import com.dduptop.micro.service.client.TokenUtils
+import com.dduptop.service.auth.client.ApiUserLoginModel
+import com.dduptop.service.auth.client.NonCloudAuthClient
 import com.dduptop.service.document.client.DocumentClient
 import com.zy.mylib.utils.DateUtils
 import com.zy.mylib.utils.HashUtils
 import com.zy.mylib.webmvc.model.RestMessage
-import org.apache.commons.beanutils.BeanUtils
+import org.apache.commons.codec.binary.Base64
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.cglib.beans.BeanMap
 import org.springframework.stereotype.Service
 import org.springframework.util.Base64Utils
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
+import java.time.Instant
 import java.util.*
 
 @Service
@@ -78,7 +82,13 @@ class LogisticsManagerImpl : LogisticsManager {
     private lateinit var serviceOrderInsertRunner: ServiceRunner<BaseXmlRequest, XmlResponses<OrderInsertResponse>>
 
     @Autowired
+    private lateinit var nonCloudAuthClient: NonCloudAuthClient
+
+    @Autowired
     private lateinit var documentClient: DocumentClient
+
+    @Autowired
+    private lateinit var feignBeanConfig: FeignBeanConfig
 
     override fun createOrder(form: OrderNormal): RestMessage {
         val logisticsInterface = OrderNormal().apply {
@@ -267,6 +277,17 @@ class LogisticsManagerImpl : LogisticsManager {
 
     override fun printBill(sourceFileType: String, form: BillModel): ByteArray {
         val docxByteArray = WordUtils.templateProcess(WordUtils.bean2Map(form), "bill.ftl")
+        val random = UUID.randomUUID().toString()
+        val second = Instant.now().epochSecond
+        val model = ApiUserLoginModel().apply {
+            loginId = feignBeanConfig.appId
+            nonce = random
+            timestamp = second
+            system = feignBeanConfig.system
+            sign = Base64.encodeBase64String(HashUtils.sha256("${loginId}${nonce}${timestamp}${feignBeanConfig.secret}"))
+        }
+        val token = nonCloudAuthClient.apiUserLogin(model)
+        TokenUtils.setToken(token)
         return documentClient.convert(sourceFileType, docxByteArray)
     }
 }
