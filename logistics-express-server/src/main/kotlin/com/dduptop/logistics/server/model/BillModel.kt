@@ -86,9 +86,4 @@ class BillModel {
      * 标识
      */
     var sign: String? = null
-
-    /**
-     * 运单条形码base64
-     */
-    var waybillNoBase64: String? = null
 }

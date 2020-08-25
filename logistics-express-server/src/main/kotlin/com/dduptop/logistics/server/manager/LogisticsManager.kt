@@ -38,5 +38,5 @@ interface LogisticsManager {
     /**
      * 获取打印面单的pdf
      */
-    fun printBill(sourceFileType: String, form: BillModel): ByteArray
+    fun printBill(waybillNo: String, form: BillModel): ByteArray
 }

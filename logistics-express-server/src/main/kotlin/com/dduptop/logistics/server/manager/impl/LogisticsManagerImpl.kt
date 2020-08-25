@@ -25,8 +25,10 @@ import com.dduptop.logistics.server.model.response.xml.create.OrderCreateRespons
 import com.dduptop.logistics.server.model.response.xml.insert.OrderInsertResponse
 import com.dduptop.logistics.server.service.ServiceRunner
 import com.dduptop.logistics.server.service.impl.*
+import com.dduptop.logistics.server.util.BarCodeUtils
 import com.dduptop.logistics.server.util.SignUtils
 import com.dduptop.logistics.server.util.WordUtils
+import com.dduptop.logistics.server.util.ZipUtils
 import com.dduptop.micro.service.client.TokenUtils
 import com.dduptop.service.auth.client.ApiUserLoginModel
 import com.dduptop.service.auth.client.NonCloudAuthClient
@@ -35,9 +37,12 @@ import com.zy.mylib.utils.DateUtils
 import com.zy.mylib.utils.HashUtils
 import com.zy.mylib.webmvc.model.RestMessage
 import org.apache.commons.codec.binary.Base64
+import org.apache.commons.io.FileUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.util.Base64Utils
+import java.io.ByteArrayOutputStream
+import java.io.FileOutputStream
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.time.Instant
@@ -275,8 +280,15 @@ class LogisticsManagerImpl : LogisticsManager {
         }
     }
 
-    override fun printBill(sourceFileType: String, form: BillModel): ByteArray {
-        val docxByteArray = WordUtils.templateProcess(WordUtils.bean2Map(form), "bill.ftl")
+    override fun printBill(waybillNo: String, form: BillModel): ByteArray {
+        val documentByteArray = WordUtils.templateProcess("document.ftl", WordUtils.bean2Map(form))
+
+        val barCodeByteArrayOutputStream = ByteArrayOutputStream()
+        BarCodeUtils.barCode(waybillNo, 56, 20, waybillNo, barCodeByteArrayOutputStream)
+
+        val newEntry = hashMapOf("word/document.xml" to documentByteArray, "word/media/image1.png" to barCodeByteArrayOutputStream.toByteArray())
+        val docxByteArray = ZipUtils.toDocx("bill.docx", newEntry)
+
         val random = UUID.randomUUID().toString()
         val second = Instant.now().epochSecond
         val model = ApiUserLoginModel().apply {
@@ -288,6 +300,6 @@ class LogisticsManagerImpl : LogisticsManager {
         }
         val token = nonCloudAuthClient.apiUserLogin(model)
         TokenUtils.setToken(token)
-        return documentClient.convert(sourceFileType, docxByteArray)
+        return documentClient.convert("docx", docxByteArray)
     }
 }

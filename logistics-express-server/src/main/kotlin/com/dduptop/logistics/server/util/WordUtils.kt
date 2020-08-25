@@ -13,7 +13,7 @@ object WordUtils {
         return BeanMap.create(bean).toMap()
     }
 
-    fun templateProcess(data: Map<Any?, Any?>, templateName: String): ByteArray {
+    fun templateProcess(templateName: String, data: Map<Any?, Any?>): ByteArray {
         val config = Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS).apply {
             defaultEncoding = StandardCharsets.UTF_8.displayName()
             isClassicCompatible = true

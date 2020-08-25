@@ -22,6 +22,9 @@ dependencies {
     implementation("com.dduptop:auth-client:1.11.37")
     implementation("com.alibaba.csb.sdk:http-client:1.1.5.2")
 
+    implementation("com.google.zxing:core:3.4.0")
+    implementation("com.google.zxing:javase:3.4.0")
+
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
 //    implementation("org.flywaydb:flyway-core:6.5.0")
 //    implementation("mysql:mysql-connector-java:8.0.20")

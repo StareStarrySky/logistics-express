@@ -45,8 +45,8 @@ class LogisticsRest : BaseRest() {
     }
 
     @PostMapping("/print_bill")
-    fun printBill(@RequestParam("sourceFileType") sourceFileType: String,
+    fun printBill(@RequestParam("waybillNo") waybillNo: String,
                   @RequestBody form: BillModel): ByteArray {
-        return logisticsManager.printBill(sourceFileType , form)
+        return logisticsManager.printBill(waybillNo, form)
     }
 }
