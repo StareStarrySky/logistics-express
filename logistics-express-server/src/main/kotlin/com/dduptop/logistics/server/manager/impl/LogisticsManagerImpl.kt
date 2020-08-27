@@ -43,6 +43,7 @@ import org.springframework.stereotype.Service
 import org.springframework.util.Base64Utils
 import java.io.ByteArrayOutputStream
 import java.io.FileOutputStream
+import java.lang.Exception
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.time.Instant
@@ -283,10 +284,14 @@ class LogisticsManagerImpl : LogisticsManager {
     override fun printBill(waybillNo: String, form: BillModel): ByteArray {
         val documentByteArray = WordUtils.templateProcess("document.ftl", WordUtils.bean2Map(form))
 
-        val barCodeByteArrayOutputStream = ByteArrayOutputStream()
-        BarCodeUtils.barCode(waybillNo, 56, 20, waybillNo, barCodeByteArrayOutputStream)
+        val barCodeBigStream = ByteArrayOutputStream()
+        BarCodeUtils.barCode(waybillNo, 500, 80, waybillNo, barCodeBigStream)
+        val barCodeSmallStream = ByteArrayOutputStream()
+        BarCodeUtils.barCode(waybillNo, 600, 60, waybillNo, barCodeSmallStream)
 
-        val newEntry = hashMapOf("word/document.xml" to documentByteArray, "word/media/image1.png" to barCodeByteArrayOutputStream.toByteArray())
+        val newEntry = hashMapOf("word/document.xml" to documentByteArray,
+            "word/media/image3.png" to barCodeBigStream.toByteArray(),
+            "word/media/image6.png" to barCodeSmallStream.toByteArray())
         val docxByteArray = ZipUtils.toDocx("bill.docx", newEntry)
 
         val random = UUID.randomUUID().toString()
@@ -300,6 +305,6 @@ class LogisticsManagerImpl : LogisticsManager {
         }
         val token = nonCloudAuthClient.apiUserLogin(model)
         TokenUtils.setToken(token)
-        return documentClient.convert("docx", docxByteArray)
+        return documentClient.convert(docxByteArray)
     }
 }

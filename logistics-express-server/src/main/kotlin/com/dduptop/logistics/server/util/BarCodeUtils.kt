@@ -6,6 +6,8 @@ import com.google.zxing.WriterException
 import com.google.zxing.client.j2se.MatrixToImageWriter
 import com.google.zxing.oned.Code128Writer
 import com.zy.mylib.base.exception.BusException
+import java.awt.Color
+import java.awt.Font
 import java.awt.image.BufferedImage
 import java.io.IOException
 import java.io.OutputStream
@@ -43,14 +45,16 @@ object BarCodeUtils {
 
     fun barCode(content: String, width: Int, height: Int, customWord: String): BufferedImage {
         val barCode = barCode(content, width, height)
-        val bufferedImage = BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
+        val bufferedImage = BufferedImage(barCode.width, barCode.height + 20, BufferedImage.TYPE_INT_ARGB)
 
         val graphics2D = bufferedImage.createGraphics()
+        graphics2D.color = Color.WHITE
+        graphics2D.fillRect(0, 0, barCode.width, barCode.height + 20)
         graphics2D.drawImage(barCode, 0, 0, barCode.width, barCode.height, null)
+        graphics2D.color = Color.BLACK
+        graphics2D.font = Font(null, Font.PLAIN, 20)
         val wordWidth = graphics2D.fontMetrics.stringWidth(customWord)
-        val wordX = (width - wordWidth) / 2
-        val wordY = height + 20
-        graphics2D.drawString(customWord, wordX, wordY)
+        graphics2D.drawString(customWord, (barCode.width - wordWidth) / 2, barCode.height + 20)
         graphics2D.dispose()
         bufferedImage.flush()
         return bufferedImage
