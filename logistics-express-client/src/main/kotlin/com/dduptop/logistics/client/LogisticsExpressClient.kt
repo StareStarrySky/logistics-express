@@ -44,6 +44,6 @@ interface LogisticsExpressClient {
     fun orderInsert(@RequestBody form: OrderNormals): RestMessage
 
     @PostMapping("/print_bill")
-    fun printBill(@RequestParam("sourceFileType") sourceFileType: String,
+    fun printBill(@RequestParam("waybillNo") waybillNo: String,
                   @RequestBody form: BillModel): ByteArray
 }

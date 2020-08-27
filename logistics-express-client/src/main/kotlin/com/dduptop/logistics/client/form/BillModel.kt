@@ -4,7 +4,7 @@ import java.io.Serializable
 
 class BillModel : Serializable {
     companion object {
-        private const val SERIAL_VERSION_UID = 4146363596751313851L
+        private const val SERIAL_VERSION_UID = 4146395517513913851L
     }
 
     /**
@@ -12,6 +12,11 @@ class BillModel : Serializable {
      * 标准快递
      */
     var productType: String? = null
+
+    /**
+     * 时间
+     */
+    var createDate: String? = null
 
     /**
      * 时间
@@ -49,52 +54,17 @@ class BillModel : Serializable {
     var senderMobile: String? = null
 
     /**
+     * 寄短机
+     */
+    var senderMobileShort: String? = null
+
+    /**
      * 寄址
      */
     var senderAddress: String? = null
 
     /**
-     * 付款方式
+     * 寄短址
      */
-    var payWay: String? = null
-
-    /**
-     * 计价重量
-     */
-    var payWeight: String? = null
-
-    /**
-     * 计价金额
-     */
-    var money: String? = null
-
-    /**
-     * 数量
-     */
-    var number: String? = null
-
-    /**
-     * 重量
-     */
-    var weight: String? = null
-
-    /**
-     * 配货信息
-     */
-    var goods: String? = null
-
-    /**
-     * 备注
-     */
-    var note: String? = null
-
-    /**
-     * 标识
-     */
-    var sign: String? = null
-
-    /**
-     * 运单条形码base64
-     */
-    var waybillNoBase64: String? = null
+    var senderAddressShort: String? = null
 }

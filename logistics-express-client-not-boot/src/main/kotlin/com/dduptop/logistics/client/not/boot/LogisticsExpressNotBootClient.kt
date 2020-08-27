@@ -73,8 +73,8 @@ class LogisticsExpressNotBootClient(var baseUrl: String, var appId: String, var 
         return this.toBean(result, RestMessage::class.java)
     }
 
-    fun printBill(sourceFileType: String, form: BillModel, token: String?): ByteArray {
-        val url = "${baseUrl}/logistics/print_bill?sourceFileType=${sourceFileType}"
+    fun printBill(waybillNo: String, form: BillModel, token: String?): ByteArray {
+        val url = "${baseUrl}/logistics/print_bill?waybillNo=${waybillNo}"
         val result = this.executePost(url, form, token)
         return EntityUtils.toByteArray(result.entity)
     }

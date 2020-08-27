@@ -1,6 +1,12 @@
 package com.dduptop.logistics.server.model
 
-class BillModel {
+import java.io.Serializable
+
+class BillModel : Serializable {
+    companion object {
+        private const val SERIAL_VERSION_UID = 4146395517513913851L
+    }
+
     /**
      * 产品类型
      * 标准快递
