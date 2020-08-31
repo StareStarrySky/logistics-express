@@ -85,6 +85,20 @@ class OrderNormal : BaseContent() {
     var mailNo: String? = null
 
     /**
+     * 回单标识
+     * 1:基本 2:回执 3:短信 5:电子返单
+     * 6:格式返单 7:自备返单 8:反向返单
+     */
+    @JacksonXmlProperty(localName = "receipt_flag")
+    var receiptFlag: Int? = null
+
+    /**
+     * 回单运单号
+     */
+    @JacksonXmlProperty(localName = "receipt_waybill_no")
+    var receiptWaybillNo: String? = null
+
+    /**
      * 一票多件标志
      * 0 正常 1 一票多件
      */
