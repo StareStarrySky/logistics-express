@@ -5,9 +5,8 @@ import com.dduptop.logistics.server.manager.LogisticsManager
 import com.dduptop.logistics.server.model.BillModel
 import com.dduptop.logistics.server.model.common.EcCompanyId
 import com.dduptop.logistics.server.model.common.MsgType
-import com.dduptop.logistics.server.model.common.WrongCodeBus
+import com.dduptop.logistics.server.model.common.WrongCode
 import com.dduptop.logistics.server.model.request.json.CSBRequest
-import com.dduptop.logistics.server.model.request.json.classification.ClaAddress
 import com.dduptop.logistics.server.model.request.json.classification.ClassificationReq
 import com.dduptop.logistics.server.model.request.json.orderline.MsgContent
 import com.dduptop.logistics.server.model.request.json.orderline.OrderLine
@@ -37,13 +36,9 @@ import com.zy.mylib.utils.DateUtils
 import com.zy.mylib.utils.HashUtils
 import com.zy.mylib.webmvc.model.RestMessage
 import org.apache.commons.codec.binary.Base64
-import org.apache.commons.io.FileUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import org.springframework.util.Base64Utils
 import java.io.ByteArrayOutputStream
-import java.io.FileOutputStream
-import java.lang.Exception
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.time.Instant
@@ -145,37 +140,35 @@ class LogisticsManagerImpl : LogisticsManager {
         return if (resp.success!!) {
             RestMessage.SUCCESS.apply { message = resp.waybillNo }
         } else {
-            val wrong = WrongCodeBus.valueOf(resp.reason!!)
+            val wrong = WrongCode.valueOf(resp.reason!!)
             RestMessage(wrong.name, wrong.message)
         }
     }
 
     override fun classification(req: List<ClassificationReq>): CSBResponse<ClassificationRes> {
-        val logisticsInterface: MutableList<ClassificationReq> = ArrayList()
+//        val classification = ClassificationReq()
+//        classification.objectId = UUID.randomUUID().toString()
+//        val senderAddress = ClaAddress().apply {
+//            town = "余杭街道"
+//            city = "杭州市"
+//            area = "余杭"
+//            detail = "狮山路11号"
+//            province = "浙江省"
+//            zip = "123456"
+//        }
+//        val receiverAddress = ClaAddress().apply {
+//            town = "东山街道"
+//            city = "南京市"
+//            area = "江宁"
+//            detail = "东麒路33号A座"
+//            province = "江苏省"
+//            zip = "123456"
+//        }
+//        classification.senderClaAddress = senderAddress
+//        classification.receiverClaAddress = receiverAddress
+//        val logisticsInterface = arrayListOf(classification)
 
-        val classification = ClassificationReq()
-        classification.objectId = UUID.randomUUID().toString()
-        val senderAddress = ClaAddress()
-        val receiverAddress = ClaAddress()
-
-        senderAddress.town = "余杭街道"
-        senderAddress.city = "杭州市"
-        senderAddress.area = "余杭"
-        senderAddress.detail = "狮山路11号"
-        senderAddress.province = "浙江省"
-        senderAddress.zip = "123456"
-        classification.senderClaAddress = senderAddress
-        receiverAddress.town = "东山街道"
-        receiverAddress.city = "南京市"
-        receiverAddress.area = "江宁"
-        receiverAddress.detail = "东麒路33号A座"
-        receiverAddress.province = "江苏省"
-        receiverAddress.zip = "123456"
-        classification.receiverClaAddress = receiverAddress
-
-        logisticsInterface.add(classification)
-
-        val json = emsJsonRequest.jsonMapper.writeValueAsString(logisticsInterface)
+        val json = emsJsonRequest.jsonMapper.writeValueAsString(req)
 
         val csbRequest = CSBRequest()
         csbRequest.wpCode = classificationConfig.wpCode
@@ -186,11 +179,11 @@ class LogisticsManagerImpl : LogisticsManager {
 
     override fun orderLine(traceNo: String): JsonResponse {
         val orderLine = OrderLine()
-//        orderLine.traceNo = traceNo
-        orderLine.traceNo = "9876532415690"
+        orderLine.traceNo = traceNo
+//        orderLine.traceNo = "9876532415690"
 
         val json = emsJsonRequest.jsonMapper.writeValueAsString(orderLine)
-        val digest = Base64Utils.encodeToUrlSafeString(HashUtils.getMd5("$json${orderLineConfig.appKey}").toByteArray(StandardCharsets.UTF_8))
+        val digest = SignUtils.makeSignEMS("$json${orderLineConfig.appKey}")
         val reqParam = MsgContent().apply {
             sendID = EcCompanyId.whzcwyh
             proviceNo = "99"
@@ -210,64 +203,71 @@ class LogisticsManagerImpl : LogisticsManager {
         val batchGetWaybillNo = BatchGetWaybillNo().apply {
             createdTime = DateUtils.getNowTime()
             eventSource = EcCompanyId.whzcwyh
-//            customerNo = batchNoConfig.customerNo
-            customerNo = "90000001885440"
+            customerNo = batchNoConfig.customerNo
+//            customerNo = "90000001885440"
             mailType = "6"
             count = noCount
         }
         val xmlRequest = emsXmlRequest.buildReq(batchGetWaybillNo, batchNoConfig.key, MsgType.BatchGetWaybillNo)
         val responses = emsXmlRequest.sendRequest(serviceBatchNoRunner, xmlRequest)
 
-        return if (responses.result!!) RestMessage.SUCCESS.apply { message = responses.waybillNo } else RestMessage(responses.errorCode, responses.errorMsg)
+        return if (responses.result!!) RestMessage.SUCCESS.apply { message = responses.waybillNo } else RestMessage(responses.errorCode, WrongCode.get(responses.errorMsg))
     }
 
     override fun orderInsert(form: OrderNormals): RestMessage {
-        val orderNormal = OrderNormal().apply {
-            createdTime = DateUtils.getNowTime()
-            logisticsProvider = 'B'
-            baseProductNo = "1"
-            ecommerceNo = EcCompanyId.whzcwyh
+        val orderNormalsList = arrayListOf<OrderNormal>()
+        for (orderNormalForm in form.orderNormals) {
+            val orderNormal = orderNormalForm.apply {
+                createdTime = DateUtils.getNowTime()
+                logisticsProvider = 'B'
+                baseProductNo = "1"
+                ecommerceNo = EcCompanyId.whzcwyh
 //            ecommerceUserId = "<50位随机数"
 //            ecommerceUserId = "1231232"
-            senderType = 1
+                senderType = 1
 //            senderNo = "???"
-            senderNo = orderInsertConfig.senderNo
-            innerChannel = 0
+                senderNo = orderInsertConfig.senderNo
+                innerChannel = 0
 //            logisticsOrderNo = "自定义"
-            logisticsOrderNo = "231313"
+                logisticsOrderNo = orderNormalForm.logisticsOrderNo
 //            batchNo = null
-            waybillNo = "3131312"
+                waybillNo = orderNormalForm.waybillNo
 //            mailNo = "3131312"
-            oneBillFlag = "1"
-            productType = "1"
-            projectId = EcCompanyId.whzcwyh
-            sender = OrderAddress().apply {
-                name = "陆安波"
-                postCode = "510000"
-                phone = "020-86210730"
-                mobile = "13111111"
-                prov = "广东"
-                city = "广州"
-                county = "白云区"
-                address = "广州市白云区均禾街道夏花二路66号401"
+                oneBillFlag = "0"
+                productType = "1"
+                projectId = EcCompanyId.whzcwyh
+                sender = orderNormalForm.sender
+//                sender = OrderAddress().apply {
+//                    name = "陆安波"
+//                    postCode = "510000"
+//                    phone = "020-86210730"
+//                    mobile = "13111111"
+//                    prov = "广东"
+//                    city = "广州"
+//                    county = "白云区"
+//                    address = "广州市白云区均禾街道夏花二路66号401"
+//                }
+//                pickup = sender
+//                receiver = OrderAddress().apply {
+//                    name = "王丽婷"
+//                    phone = "18690972424"
+//                    mobile = "18690972424"
+//                    prov = "新疆维吾尔自治区"
+//                    city = "新疆维吾尔自治区"
+//                    county = "沙依巴克区"
+//                    address = "新疆维吾尔自治区乌鲁木齐市沙依巴克区西山街道沙区西环中路151号中山花苑小区"
+//                }
+                receiver = orderNormalForm.receiver
+//                cargos = arrayListOf(Cargo().apply {
+//                    cargoName = "医用棉签(B型)"
+//                }, Cargo().apply {
+//                    cargoName = "过氧苯甲酰凝胶"
+//                })
+                cargos = orderNormalForm.cargos
             }
-            pickup = sender
-            receiver = OrderAddress().apply {
-                name = "王丽婷"
-                phone = "18690972424"
-                mobile = "18690972424"
-                prov = "新疆维吾尔自治区"
-                city = "新疆维吾尔自治区"
-                county = "沙依巴克区"
-                address = "新疆维吾尔自治区乌鲁木齐市沙依巴克区西山街道沙区西环中路151号中山花苑小区"
-            }
-            cargos = arrayListOf(Cargo().apply {
-                cargoName = "医用棉签(B型)"
-            }, Cargo().apply {
-                cargoName = "过氧苯甲酰凝胶"
-            })
+            orderNormalsList.add(orderNormal)
         }
-        val logisticsInterface = OrderNormals().apply { orderNormals = arrayListOf(orderNormal) }
+        val logisticsInterface = OrderNormals().apply { orderNormals = orderNormalsList }
         val xmlRequest = emsXmlRequest.buildReq(logisticsInterface, orderInsertConfig.parentId, MsgType.ORDERCREATE)
 
         val responses = emsXmlRequest.sendRequest(serviceOrderInsertRunner, xmlRequest)
