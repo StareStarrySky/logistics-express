@@ -67,4 +67,9 @@ class BillModel : Serializable {
      * 寄短址
      */
     var senderAddressShort: String? = null
+
+    /**
+     * 物品信息
+     */
+    var goods: String? = null
 }
