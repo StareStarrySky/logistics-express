@@ -18,8 +18,11 @@ dependencies {
     implementation("org.apache.httpcomponents:httpclient") {
         exclude(group = "ch.qos.logback", module = "logback-classic")
     }
+    api("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
     api("com.zy.mylib:mylib-security") {
-        exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
+//        exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
+        exclude(group = "org.springframework.boot")
+        exclude(group = "ch.qos.logback", module = "logback-classic")
     }
     api("com.zy.mylib:mylib-utils")
 }
