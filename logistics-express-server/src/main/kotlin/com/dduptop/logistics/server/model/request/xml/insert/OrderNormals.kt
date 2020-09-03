@@ -12,5 +12,5 @@ class OrderNormals : BaseContent() {
     @NotNull
     @JacksonXmlElementWrapper(useWrapping = false)
     @JacksonXmlProperty(localName = "OrderNormal")
-    lateinit var orderNormals: List<OrderNormal>
+    var orderNormals: List<OrderNormal>? = null
 }

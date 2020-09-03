@@ -7,7 +7,7 @@ class ClaAddress {
      * 省
      */
     @NotNull
-    lateinit var province: String
+    var province: String? = null
 
     /**
      * 市
@@ -28,7 +28,7 @@ class ClaAddress {
      * 剩余详细地址
      */
     @NotNull
-    lateinit var detail: String
+    var detail: String? = null
 
     /**
      * 邮编

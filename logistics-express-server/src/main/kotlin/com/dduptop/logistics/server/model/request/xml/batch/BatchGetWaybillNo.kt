@@ -16,14 +16,14 @@ class BatchGetWaybillNo : BaseContent() {
      */
     @NotNull
     @JacksonXmlProperty(localName = "CreatedTime")
-    lateinit var createdTime: String
+    var createdTime: String? = null
 
     /**
      * 渠道来源标识
      */
     @NotNull
     @JacksonXmlProperty(localName = "eventSource")
-    lateinit var eventSource: EcCompanyId
+    var eventSource: EcCompanyId? = null
 
     /**
      * 客户代码
@@ -31,7 +31,7 @@ class BatchGetWaybillNo : BaseContent() {
      */
     @NotNull
     @JacksonXmlProperty(localName = "CustomerNo")
-    lateinit var customerNo: String
+    var customerNo: String? = null
 
     /**
      * 业务种类（可扩展）
@@ -41,7 +41,7 @@ class BatchGetWaybillNo : BaseContent() {
      */
     @NotNull
     @JacksonXmlProperty(localName = "MailType")
-    lateinit var mailType: String
+    var mailType: String? = null
 
     /**
      * 单量（1-1000）

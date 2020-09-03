@@ -7,7 +7,7 @@ class Cargo {
     /**
      * 商品名称,内件名称
      */
-    lateinit var cargoName: String
+    var cargoName: String? = null
 
     /**
      * 订单号,用于一票多件

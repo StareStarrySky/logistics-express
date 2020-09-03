@@ -12,7 +12,7 @@ class OrderAddress {
      */
     @NotNull
     @JacksonXmlProperty(localName = "name")
-    lateinit var name: String
+    var name: String? = null
 
     /**
      * 用户邮编
@@ -31,21 +31,21 @@ class OrderAddress {
      */
     @NotNull
     @JacksonXmlProperty(localName = "mobile")
-    lateinit var mobile: String
+    var mobile: String? = null
 
     /**
      * 用户所在省，使用国标全称
      */
     @NotNull
     @JacksonXmlProperty(localName = "prov")
-    lateinit var prov: String
+    var prov: String? = null
 
     /**
      * 用户所在市，使用国标全称
      */
     @NotNull
     @JacksonXmlProperty(localName = "city")
-    lateinit var city: String
+    var city: String? = null
 
     /**
      * 用户所在县（区），使用国标全称
@@ -58,5 +58,5 @@ class OrderAddress {
      */
     @NotNull
     @JacksonXmlProperty(localName = "address")
-    lateinit var address: String
+    var address: String? = null
 }

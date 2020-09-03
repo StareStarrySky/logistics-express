@@ -7,7 +7,7 @@ class OrderAddress {
     /**
      * 用户姓名
      */
-    lateinit var name: String
+    var name: String? = null
 
     /**
      * 用户邮编
@@ -22,17 +22,17 @@ class OrderAddress {
     /**
      * 用户移动电话
      */
-    lateinit var mobile: String
+    var mobile: String? = null
 
     /**
      * 用户所在省，使用国标全称
      */
-    lateinit var prov: String
+    var prov: String? = null
 
     /**
      * 用户所在市，使用国标全称
      */
-    lateinit var city: String
+    var city: String? = null
 
     /**
      * 用户所在县（区），使用国标全称
@@ -42,5 +42,5 @@ class OrderAddress {
     /**
      * 用户详细地址
      */
-    lateinit var address: String
+    var address: String? = null
 }

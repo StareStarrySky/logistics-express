@@ -11,20 +11,20 @@ class BaseXmlRequest : BaseRequest() {
     /**
      * XML内容
      */
-    lateinit var logistics_interface: String
+    var logistics_interface: String? = null
 
     /**
      * 签名验证：xml+parternID，然后进行MD5，转换为Base64字符串。
      */
-    lateinit var data_digest: String
+    var data_digest: String? = null
 
     /**
      * 消息类型
      */
-    lateinit var msg_type: MsgType
+    var msg_type: MsgType? = null
 
     /**
      * 电商标识，如“DKH”
      */
-    lateinit var ecCompanyId: EcCompanyId
+    var ecCompanyId: EcCompanyId? = null
 }

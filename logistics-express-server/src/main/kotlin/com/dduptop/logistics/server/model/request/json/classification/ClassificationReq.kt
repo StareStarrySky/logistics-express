@@ -7,15 +7,15 @@ class ClassificationReq : BaseRequest() {
      * 测试：发件/收件地址对 ID，单次请求中唯一
      * 正式：订单号
      */
-    lateinit var objectId: String
+    var objectId: String? = null
 
     /**
      * 发件地址
      */
-    lateinit var senderClaAddress: ClaAddress
+    var senderClaAddress: ClaAddress? = null
 
     /**
      * 收件地址
      */
-    lateinit var receiverClaAddress: ClaAddress
+    var receiverClaAddress: ClaAddress? = null
 }

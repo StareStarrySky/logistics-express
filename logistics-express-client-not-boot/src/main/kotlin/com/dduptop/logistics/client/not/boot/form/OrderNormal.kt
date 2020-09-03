@@ -119,7 +119,7 @@ class OrderNormal : BaseContent() {
     /**
      * 寄件人信息
      */
-    lateinit var sender: OrderAddress
+    var sender: OrderAddress? = null
 
     /**
      * 发货人信息
@@ -129,10 +129,10 @@ class OrderNormal : BaseContent() {
     /**
      * 收件人信息
      */
-    lateinit var receiver: OrderAddress
+    var receiver: OrderAddress? = null
 
     /**
      * 商品信息
      */
-    lateinit var cargos: List<Cargo>
+    var cargos: List<Cargo>? = null
 }

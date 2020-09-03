@@ -10,5 +10,5 @@ class OrderLine {
      * 运单号
      */
     @NotNull
-    lateinit var traceNo: String
+    var traceNo: String? = null
 }

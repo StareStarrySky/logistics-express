@@ -7,7 +7,7 @@ class CSBRequest : BaseRequest() {
     /**
      * 请求签名
      */
-    lateinit var dataDigest: String
+    var dataDigest: String? = null
 
     /**
      * 对接系统标识
@@ -15,11 +15,11 @@ class CSBRequest : BaseRequest() {
      * 如果是标快传：XXX-EMS
      */
     @NotNull
-    lateinit var wpCode: String
+    var wpCode: String? = null
 
     /**
      * 请求报文内容
      */
     @NotNull
-    lateinit var logisticsInterface: String
+    var logisticsInterface: String? = null
 }

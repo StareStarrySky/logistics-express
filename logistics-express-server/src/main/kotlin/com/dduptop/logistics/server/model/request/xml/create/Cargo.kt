@@ -12,7 +12,7 @@ class Cargo {
      */
     @NotNull
     @JacksonXmlProperty(localName = "cargo_name")
-    lateinit var cargoName: String
+    var cargoName: String? = null
 
     /**
      * 订单号,用于一票多件

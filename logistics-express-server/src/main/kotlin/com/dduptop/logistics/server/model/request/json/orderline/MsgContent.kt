@@ -10,39 +10,39 @@ class MsgContent : BaseRequest() {
      * 发送方标识
      */
     @NotNull
-    lateinit var sendID: EcCompanyId
+    var sendID: EcCompanyId? = null
 
     /**
      * 数据生产的省公司代码
      * 对不能确定的省份取 99
      */
-    lateinit var proviceNo: String
+    var proviceNo: String? = null
 
     /**
      * 消息类别
      */
     @NotNull
-    lateinit var msgKind: MsgType
+    var msgKind: MsgType? = null
 
     /**
      * 消息唯一序列号
      */
     @NotNull
-    lateinit var serialNo: String
+    var serialNo: String? = null
 
     /**
      * 消息发送日期时间
      * 格式：YYYYMMDDHHMISS 示例：20171111151501
      */
     @NotNull
-    lateinit var sendDate: String
+    var sendDate: String? = null
 
     /**
      * 接收方标识
      * XX：XX 系统
      */
     @NotNull
-    lateinit var receiveID: EcCompanyId
+    var receiveID: EcCompanyId? = null
 
     /**
      * 批次号
@@ -56,14 +56,14 @@ class MsgContent : BaseRequest() {
      * 3-压缩后的 Byte[]
      */
     @NotNull
-    lateinit var dataType: String
+    var dataType: String? = null
 
     /**
      * 数据验证
      */
     @NotNull
-    lateinit var dataDigest: String
+    var dataDigest: String? = null
 
     @NotNull
-    lateinit var msgBody: String
+    var msgBody: String? = null
 }

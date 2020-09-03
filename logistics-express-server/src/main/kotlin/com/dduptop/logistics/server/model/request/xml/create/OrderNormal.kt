@@ -17,7 +17,7 @@ class OrderNormal : BaseContent() {
      */
     @NotNull
     @JacksonXmlProperty(localName = "created_time")
-    lateinit var createdTime: String
+    var createdTime: String? = null
 
     /**
      * 物流承运方
@@ -35,14 +35,14 @@ class OrderNormal : BaseContent() {
      */
     @NotNull
     @JacksonXmlProperty(localName = "base_product_no")
-    lateinit var baseProductNo: String
+    var baseProductNo: String? = null
 
     /**
      * 渠道来源标识
      */
     @NotNull
     @JacksonXmlProperty(localName = "ecommerce_no")
-    lateinit var ecommerceNo: EcCompanyId
+    var ecommerceNo: EcCompanyId? = null
 
     /**
      * 电商客户标识
@@ -124,7 +124,7 @@ class OrderNormal : BaseContent() {
      */
     @NotNull
     @JacksonXmlProperty(localName = "logistics_order_no")
-    lateinit var logisticsOrderNo: String
+    var logisticsOrderNo: String? = null
 
     /**
      * 业务产品分类（可售卖产品代码）(下单取号接口)
@@ -154,7 +154,7 @@ class OrderNormal : BaseContent() {
      */
     @NotNull
     @JacksonXmlProperty(localName = "sender")
-    lateinit var sender: OrderAddress
+    var sender: OrderAddress? = null
 
     /**
      * 发货人信息
@@ -167,7 +167,7 @@ class OrderNormal : BaseContent() {
      */
     @NotNull
     @JacksonXmlProperty(localName = "receiver")
-    lateinit var receiver: OrderAddress
+    var receiver: OrderAddress? = null
 
     /**
      * 商品信息
@@ -175,5 +175,5 @@ class OrderNormal : BaseContent() {
     @NotNull
     @JacksonXmlElementWrapper(localName = "cargos")
     @JacksonXmlProperty(localName = "Cargo")
-    lateinit var cargos: List<Cargo>
+    var cargos: List<Cargo>? = null
 }
