@@ -164,8 +164,8 @@ class LogisticsManagerImpl : LogisticsManager {
 //            province = "江苏省"
 //            zip = "123456"
 //        }
-//        classification.senderClaAddress = senderAddress
-//        classification.receiverClaAddress = receiverAddress
+//        classification.senderAddress = senderAddress
+//        classification.receiverAddress = receiverAddress
 //        val logisticsInterface = arrayListOf(classification)
 
         val json = emsJsonRequest.jsonMapper.writeValueAsString(req)

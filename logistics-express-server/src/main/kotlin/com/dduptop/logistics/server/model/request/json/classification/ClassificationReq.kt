@@ -12,10 +12,10 @@ class ClassificationReq : BaseRequest() {
     /**
      * 发件地址
      */
-    var senderClaAddress: ClaAddress? = null
+    var senderAddress: ClaAddress? = null
 
     /**
      * 收件地址
      */
-    var receiverClaAddress: ClaAddress? = null
+    var receiverAddress: ClaAddress? = null
 }
