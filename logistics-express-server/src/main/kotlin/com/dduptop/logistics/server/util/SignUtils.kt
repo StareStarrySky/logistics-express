@@ -2,9 +2,11 @@ package com.dduptop.logistics.server.util
 
 import org.springframework.util.Base64Utils
 import org.springframework.util.DigestUtils
+import sun.misc.BASE64Encoder
 import java.io.UnsupportedEncodingException
 import java.nio.charset.StandardCharsets
 import java.security.InvalidKeyException
+import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.util.*
 import javax.crypto.Mac
@@ -32,7 +34,12 @@ object SignUtils {
         } catch (e: Exception) {false}
     }
 
+    @Throws(NoSuchAlgorithmException::class, UnsupportedEncodingException::class)
     fun makeSignEMS(content: String): String {
+        return BASE64Encoder().encode(MessageDigest.getInstance("MD5").digest((content).toByteArray(charset("UTF-8"))))
+    }
+
+    fun makeSignEMSNew(content: String): String {
         val md5DigestAsHex = DigestUtils.md5DigestAsHex(content.toByteArray(charset("UTF-8")))
         return Base64Utils.encodeToString(md5DigestAsHex.toByteArray(charset("UTF-8")))
     }

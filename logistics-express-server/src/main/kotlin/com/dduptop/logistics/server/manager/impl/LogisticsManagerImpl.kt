@@ -183,7 +183,7 @@ class LogisticsManagerImpl : LogisticsManager {
 //        orderLine.traceNo = "9876532415690"
 
         val json = emsJsonRequest.jsonMapper.writeValueAsString(orderLine)
-        val digest = SignUtils.makeSignEMS("$json${orderLineConfig.appKey}")
+        val digest = SignUtils.makeSignEMSNew("$json${orderLineConfig.appKey}")
         val reqParam = MsgContent().apply {
             sendID = EcCompanyId.whzcwyh
             proviceNo = "99"
