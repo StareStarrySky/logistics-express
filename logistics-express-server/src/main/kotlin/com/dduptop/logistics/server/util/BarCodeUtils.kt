@@ -52,8 +52,9 @@ object BarCodeUtils {
         graphics2D.fillRect(0, 0, barCode.width, barCode.height + 20)
         graphics2D.drawImage(barCode, 0, 0, barCode.width, barCode.height, null)
         graphics2D.color = Color.BLACK
-        graphics2D.font = Font(null, Font.PLAIN, 20)
-        val wordWidth = graphics2D.fontMetrics.stringWidth(customWord)
+        val font = Font(null, Font.PLAIN, 20)
+        graphics2D.font = font
+        val wordWidth = graphics2D.getFontMetrics(font).stringWidth(customWord)
         graphics2D.drawString(customWord, (barCode.width - wordWidth) / 2, barCode.height + 20)
         graphics2D.dispose()
         bufferedImage.flush()
