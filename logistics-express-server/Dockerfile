@@ -1,5 +1,4 @@
-FROM openjdk:8-alpine
+FROM ccr.ccs.tencentyun.com/logistics-express-platform/openjdk-8-alpine-font:latest
 ADD build/libs/app.jar /
 WORKDIR /
-RUN apk add --update fontconfig && rm -rf /var/cache/apk/*
 CMD ["java", "-jar", "app.jar"]
