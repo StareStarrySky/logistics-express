@@ -18,6 +18,8 @@ import org.apache.http.entity.StringEntity
 import org.apache.http.impl.client.HttpClients
 import org.apache.http.ssl.SSLContextBuilder
 import org.apache.http.util.EntityUtils
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 class LogisticsExpressNotBootClient(var baseUrl: String, var appId: String, var secret: String) {
     private val objectMapper = ObjectMapper()
@@ -38,7 +40,8 @@ class LogisticsExpressNotBootClient(var baseUrl: String, var appId: String, var 
     }
 
     fun login(timestamp: Long, signNonce: String, sign: String, loginUser: LoginUser): RestMessage {
-        val url = "${baseUrl}/auth/login?now=${timestamp}&signNonce=${signNonce}&sign=${sign}&appId=${appId}"
+        val signEncode = URLEncoder.encode(sign, StandardCharsets.UTF_8.displayName())
+        val url = "${baseUrl}/auth/login?now=${timestamp}&signNonce=${signNonce}&sign=${signEncode}&appId=${appId}"
         val result = this.executePostJson(url, loginUser, null)
         return this.toBean(result, RestMessage::class.java)
     }
