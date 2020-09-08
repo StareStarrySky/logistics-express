@@ -29,6 +29,11 @@ class BillModel : Serializable {
     var classification: String? = null
 
     /**
+     * 集包地
+     */
+    var consolidation: String? = null
+
+    /**
      * 收名
      */
     var receiverName: String? = null
