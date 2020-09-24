@@ -19,7 +19,7 @@ dependencies {
     implementation("com.zy.mylib:mylib-webmvc-security")
     implementation("com.zy.mylib:mylib-security-casbin-jwt")
     implementation("com.dduptop:document-service-client:1.0.34")
-    implementation("com.dduptop:auth-client:1.11.37")
+    implementation("com.dduptop:auth-client:1.11.43")
     implementation("com.alibaba.csb.sdk:http-client:1.1.5.2")
 
     implementation("com.google.zxing:core:3.4.0")

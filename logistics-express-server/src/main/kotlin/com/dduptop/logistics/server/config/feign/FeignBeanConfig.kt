@@ -1,7 +1,7 @@
 package com.dduptop.logistics.server.config.feign
 
 import com.dduptop.micro.service.client.FeignErrorDecoder
-import com.dduptop.micro.service.client.FeignOAuth2RequestInterceptor
+import com.dduptop.micro.service.client.FeignOAuth2NonCloudRequestInterceptor
 import com.dduptop.service.auth.client.NonCloudAuthClient
 import com.dduptop.service.document.client.DocumentClient
 import feign.Feign
@@ -33,24 +33,24 @@ class FeignBeanConfig {
 
     @Bean
     fun nonCloudAuthClient(converterObj: ObjectFactory<HttpMessageConverters>,
-                           feignOAuth2RequestInterceptor: FeignOAuth2RequestInterceptor,
+                           feignOAuth2NonCloudRequestInterceptor: FeignOAuth2NonCloudRequestInterceptor,
                            feignErrorDecoder: FeignErrorDecoder): NonCloudAuthClient {
-        return build(authServiceConfig, converterObj, feignOAuth2RequestInterceptor, feignErrorDecoder)
+        return build(authServiceConfig, converterObj, feignOAuth2NonCloudRequestInterceptor, feignErrorDecoder)
     }
 
     @Bean
     fun documentClient(converterObj: ObjectFactory<HttpMessageConverters>,
-                       feignOAuth2RequestInterceptor: FeignOAuth2RequestInterceptor,
+                       feignOAuth2NonCloudRequestInterceptor: FeignOAuth2NonCloudRequestInterceptor,
                        feignErrorDecoder: FeignErrorDecoder): DocumentClient {
-        return build(documentServiceConfig, converterObj, feignOAuth2RequestInterceptor, feignErrorDecoder)
+        return build(documentServiceConfig, converterObj, feignOAuth2NonCloudRequestInterceptor, feignErrorDecoder)
     }
 
     private inline fun <reified T> build(microServiceConfig: MicroServiceConfig,
                                          converterObj: ObjectFactory<HttpMessageConverters>,
-                                         feignOAuth2RequestInterceptor: FeignOAuth2RequestInterceptor,
+                                         feignOAuth2NonCloudRequestInterceptor: FeignOAuth2NonCloudRequestInterceptor,
                                          feignErrorDecoder: FeignErrorDecoder): T {
         return Feign.builder()
-            .requestInterceptor(feignOAuth2RequestInterceptor)
+            .requestInterceptor(feignOAuth2NonCloudRequestInterceptor)
             .contract(SpringMvcContract())
             .encoder(SpringEncoder(converterObj))
             .decoder(SpringDecoder(converterObj))
