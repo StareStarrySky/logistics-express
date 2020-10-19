@@ -31,20 +31,20 @@ ems:
     url: https://211.156.195.17/iwaybillno-web/a/iwaybill/receive
     parent-id: key123xydJDPT
   classification:
-    url: http://211.156.195.187:8086/ceshi_csb_broker
+    url: https://211.156.195.14:443/csb_jidi1_1
     api: routInfoQueryForPDD
     version: 1.0.0
-    accessKey: dd979a77b2a44e54b65f01dcbc0bae04
-    secretKey: kCZfusS4Zn300MTnYtIlWzhdoE8=
+    accessKey: 980ee03f63ef470ea5a249633133fbe9
+    secretKey: C3GY4wxUob7j/OEg1PN7Z8y7gKQ=
     wpCode: whzcwyh-EMS
   order-line:
-    url: http://211.156.195.29/querypush-twswn/mailTrack/queryMailTrackWn/plus
+    url: http://211.156.195.35/querypush-twswn/mailTrack/queryMailTrackWn/plus
     app-key: AFAB71AB1F1E1353
   batch-no:
-    url: https://211.156.195.17/iwaybillno-web/a/iwaybillBatch/receive
-    key: key123xydJDPT
+    url: https://211.156.195.15/iwaybillno-web/a/iwaybillBatch/receive
+    key: VU849DhAhOUj
     customer-no: 1100035161086
   order-insert:
-    url: https://211.156.195.17/ebiistandard-job/a/ChinaPostApi/OrderCreate
-    parent-id: key123xydJDPT
+    url: https://211.156.195.15/ebiistandard-job/a/ChinaPostApi/OrderCreate
+    parent-id: VU849DhAhOUj
     sender-no: 1100035161086
